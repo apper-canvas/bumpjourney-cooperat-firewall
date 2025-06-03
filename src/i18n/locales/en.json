@@ -1,0 +1,310 @@
+{
+  "common": {
+    "hello": "Hello",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "update": "Update",
+    "loading": "Loading",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "app": {
+    "title": "BumpJourney",
+    "subtitle": "Your pregnancy companion",
+    "week": "Week",
+    "weeks": "Weeks",
+    "day": "Day",
+    "days": "Days",
+    "month": "Month",
+    "months": "Months",
+    "trimester": "Trimester",
+    "dueDate": "Due Date"
+  },
+  "navigation": {
+    "home": "Home",
+    "progress": "Progress",
+    "symptoms": "Symptoms",
+    "appointments": "Appointments",
+    "reminders": "Reminders",
+    "education": "Education",
+    "profile": "Profile",
+    "calendar": "Calendar",
+    "health": "Health"
+  },
+  "home": {
+    "welcome": "Hello, {{name}}! 👋",
+    "weekDescription": "You're {{week}} weeks into your beautiful journey.",
+    "dueDateText": "Your due date is {{date}}",
+    "stats": {
+      "weeks": "Weeks",
+      "daysLeft": "Days Left",
+      "trimester": "Trimester",
+      "size": "Size"
+    },
+    "trimesterLabels": {
+      "1st": "1st",
+      "2nd": "2nd", 
+      "3rd": "3rd"
+    }
+  },
+  "progress": {
+    "title": "Your Pregnancy Progress",
+    "weekOf": "Week {{current}} of {{total}}",
+    "complete": "{{percent}}% Complete",
+    "babyThisWeek": "Your Baby This Week",
+    "sizeOf": "Size of a {{size}}",
+    "length": "Length",
+    "weight": "Weight",
+    "milestones": "Development Milestones",
+    "navigate": "Navigate Weeks",
+    "currentTrimester": "{{trimester}} Trimester"
+  },
+  "symptoms": {
+    "title": "Log Your Symptoms",
+    "subtitle": "How are you feeling today?",
+    "severity": "Severity Level: {{level}}/5",
+    "mood": "Overall Mood: {{mood}}",
+    "notes": "Additional Notes",
+    "notesPlaceholder": "Any additional details about how you're feeling...",
+    "logButton": "Log Symptoms",
+    "recentEntries": "Recent Entries",
+    "selectSymptom": "Please select at least one symptom",
+    "logSuccess": "Symptom entry logged successfully!",
+    "moodLabels": {
+      "1": "Very Poor",
+      "2": "Poor", 
+      "3": "Fair",
+      "4": "Good",
+      "5": "Great"
+    },
+    "common": {
+      "nausea": "Nausea",
+      "fatigue": "Fatigue",
+      "breastTenderness": "Breast Tenderness",
+      "foodCravings": "Food Cravings",
+      "heartburn": "Heartburn",
+      "backPain": "Back Pain",
+      "swelling": "Swelling",
+      "frequentUrination": "Frequent Urination",
+      "moodSwings": "Mood Swings",
+      "constipation": "Constipation",
+      "headaches": "Headaches",
+      "dizziness": "Dizziness"
+    }
+  },
+  "appointments": {
+    "title": "Schedule Appointment",
+    "upcoming": "Upcoming Appointments",
+    "noAppointments": "No appointments scheduled yet",
+    "dateTime": "Date & Time",
+    "type": "Appointment Type",
+    "selectType": "Select type...",
+    "provider": "Healthcare Provider",
+    "providerPlaceholder": "Dr. Smith, Midwife Jane...",
+    "notes": "Notes (Optional)",
+    "notesPlaceholder": "Questions to ask, concerns to discuss...",
+    "scheduleButton": "Schedule Appointment",
+    "fillRequired": "Please fill in all required fields",
+    "scheduleSuccess": "Appointment scheduled successfully!",
+    "with": "with",
+    "types": {
+      "regularCheckup": "Regular Checkup",
+      "ultrasound": "Ultrasound",
+      "bloodWork": "Blood Work",
+      "glucoseTest": "Glucose Test",
+      "specialistConsultation": "Specialist Consultation",
+      "emergencyVisit": "Emergency Visit"
+    }
+  },
+  "reminders": {
+    "title": "Pregnancy Reminders",
+    "addNew": "Add New Reminder",
+    "editReminder": "Edit Reminder",
+    "titleRequired": "Title *",
+    "titlePlaceholder": "e.g., Doctor Appointment, Take Vitamins",
+    "type": "Type",
+    "dateRequired": "Date *",
+    "timeRequired": "Time *",
+    "recurring": "Recurring",
+    "priority": "Priority",
+    "description": "Description",
+    "descriptionPlaceholder": "Additional details about this reminder...",
+    "addButton": "Add Reminder",
+    "updateButton": "Update Reminder",
+    "fillRequiredFields": "Please fill in all required fields",
+    "createSuccess": "Reminder created successfully!",
+    "updateSuccess": "Reminder updated successfully!",
+    "deleteSuccess": "Reminder deleted successfully!",
+    "deleteConfirm": "Are you sure you want to delete this reminder?",
+    "markComplete": "Reminder \"{{title}}\" marked as {{status}}!",
+    "complete": "complete",
+    "incomplete": "incomplete",
+    "noReminders": "No reminders found",
+    "adjustFilter": "Try adjusting your filter or add a new reminder",
+    "filters": {
+      "all": "All",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "pending": "Pending",
+      "completed": "Completed",
+      "appointments": "Appointments",
+      "medications": "Medications",
+      "activities": "Activities"
+    },
+    "types": {
+      "appointment": "Doctor Appointment",
+      "scan": "Ultrasound/Scan",
+      "medication": "Medication",
+      "activity": "Exercise/Activity",
+      "checkup": "Health Checkup",
+      "test": "Medical Test",
+      "preparation": "Birth Preparation",
+      "other": "Other"
+    },
+    "recurringOptions": {
+      "none": "One-time",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "priorityOptions": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "stats": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "today": "Today",
+      "highPriority": "High Priority"
+    },
+    "timeLabels": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "inDays": "In {{days}} days",
+      "daysAgo": "{{days}} days ago"
+    }
+  },
+  "education": {
+    "title": "Educational Articles & Tips",
+    "searchPlaceholder": "Search articles...",
+    "categories": {
+      "medical": "Medical",
+      "nutrition": "Nutrition", 
+      "lifestyle": "Lifestyle",
+      "preparation": "Preparation"
+    },
+    "trimesterTitles": {
+      "1": "First Trimester",
+      "2": "Second Trimester",
+      "3": "Third Trimester"
+    },
+    "trimesterSubtitles": {
+      "1": "Foundations & Early Development",
+      "2": "Growth & Development", 
+      "3": "Preparation & Final Stretch"
+    },
+    "readMore": "Read More",
+    "collapse": "Collapse",
+    "keyTips": "Key Tips",
+    "relevantArticles": "{{count}} relevant articles",
+    "noArticles": "No articles found",
+    "noArticlesText": "Try adjusting your search or filter criteria",
+    "disclaimer": {
+      "title": "Remember",
+      "text": "This information is for educational purposes only and should not replace professional medical advice. Always consult with your healthcare provider about any concerns or questions regarding your pregnancy. Every pregnancy is unique, and your doctor can provide personalized guidance based on your specific situation.",
+      "badges": {
+        "evidenceBased": "Evidence-based content",
+        "updated": "Regularly updated",
+        "reviewed": "Expert reviewed"
+      }
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "week": "Week {{week}}",
+    "due": "Due {{date}}",
+    "sections": {
+      "personal": "Personal Information",
+      "pregnancy": "Pregnancy Details", 
+      "medical": "Medical Information",
+      "preferences": "Preferences & Settings",
+      "journey": "Journey Overview"
+    },
+    "personalInfo": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "birthDate": "Birth Date",
+      "emergencyContact": "Emergency Contact"
+    },
+    "pregnancyInfo": {
+      "dueDate": "Due Date",
+      "lastPeriod": "Last Menstrual Period",
+      "type": "Pregnancy Type",
+      "previousPregnancies": "Previous Pregnancies",
+      "complications": "Complications",
+      "pregnancyTypes": {
+        "singleton": "Single Baby",
+        "twins": "Twins",
+        "triplets": "Triplets"
+      }
+    },
+    "medicalInfo": {
+      "primaryDoctor": "Primary Doctor",
+      "hospital": "Hospital/Clinic",
+      "bloodType": "Blood Type",
+      "allergies": "Allergies",
+      "medications": "Current Medications"
+    },
+    "preferences": {
+      "notifications": "Notifications",
+      "units": "Unit Preferences",
+      "privacy": "Privacy",
+      "weight": "Weight:",
+      "height": "Height:",
+      "temperature": "Temperature:",
+      "shareProgress": "Share Progress",
+      "anonymousData": "Anonymous Data"
+    },
+    "journeyStats": {
+      "weeksCompleted": "Weeks Completed",
+      "daysRemaining": "Days Remaining",
+      "currentTrimester": "Current Trimester",
+      "pregnancyProgress": "Pregnancy Progress"
+    },
+    "actions": {
+      "saveChanges": "Save Changes",
+      "exportData": "Export Data",
+      "backupProfile": "Backup Profile",
+      "signOut": "Sign Out",
+      "signOutConfirm": "Are you sure you want to sign out?"
+    },
+    "messages": {
+      "profileUpdated": "Profile updated successfully!",
+      "notificationsUpdated": "Notification preferences updated!",
+      "dataExported": "Profile data exported successfully!",
+      "backupCreated": "Backup created successfully!",
+      "signedOut": "Signed out successfully!"
+    }
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "spanish": "Español"
+  }
+}

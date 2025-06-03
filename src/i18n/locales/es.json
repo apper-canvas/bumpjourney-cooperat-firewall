@@ -1,0 +1,310 @@
+{
+  "common": {
+    "hello": "Hola",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar",
+    "update": "Actualizar",
+    "loading": "Cargando",
+    "error": "Error",
+    "success": "Éxito",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "all": "Todos",
+    "none": "Ninguno",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "app": {
+    "title": "BumpJourney",
+    "subtitle": "Tu compañera de embarazo",
+    "week": "Semana",
+    "weeks": "Semanas",
+    "day": "Día",
+    "days": "Días",
+    "month": "Mes",
+    "months": "Meses",
+    "trimester": "Trimestre",
+    "dueDate": "Fecha de Parto"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "progress": "Progreso",
+    "symptoms": "Síntomas",
+    "appointments": "Citas",
+    "reminders": "Recordatorios",
+    "education": "Educación",
+    "profile": "Perfil",
+    "calendar": "Calendario",
+    "health": "Salud"
+  },
+  "home": {
+    "welcome": "¡Hola, {{name}}! 👋",
+    "weekDescription": "Estás en la semana {{week}} de tu hermoso viaje.",
+    "dueDateText": "Tu fecha de parto es {{date}}",
+    "stats": {
+      "weeks": "Semanas",
+      "daysLeft": "Días Restantes",
+      "trimester": "Trimestre",
+      "size": "Tamaño"
+    },
+    "trimesterLabels": {
+      "1st": "1er",
+      "2nd": "2do",
+      "3rd": "3er"
+    }
+  },
+  "progress": {
+    "title": "Tu Progreso del Embarazo",
+    "weekOf": "Semana {{current}} de {{total}}",
+    "complete": "{{percent}}% Completado",
+    "babyThisWeek": "Tu Bebé Esta Semana",
+    "sizeOf": "Tamaño de {{size}}",
+    "length": "Longitud",
+    "weight": "Peso",
+    "milestones": "Hitos de Desarrollo",
+    "navigate": "Navegar Semanas",
+    "currentTrimester": "{{trimester}} Trimestre"
+  },
+  "symptoms": {
+    "title": "Registrar Síntomas",
+    "subtitle": "¿Cómo te sientes hoy?",
+    "severity": "Nivel de Severidad: {{level}}/5",
+    "mood": "Estado de Ánimo General: {{mood}}",
+    "notes": "Notas Adicionales",
+    "notesPlaceholder": "Detalles adicionales sobre cómo te sientes...",
+    "logButton": "Registrar Síntomas",
+    "recentEntries": "Entradas Recientes",
+    "selectSymptom": "Por favor selecciona al menos un síntoma",
+    "logSuccess": "¡Síntomas registrados exitosamente!",
+    "moodLabels": {
+      "1": "Muy Mal",
+      "2": "Mal",
+      "3": "Regular",
+      "4": "Bien",
+      "5": "Excelente"
+    },
+    "common": {
+      "nausea": "Náuseas",
+      "fatigue": "Fatiga",
+      "breastTenderness": "Sensibilidad en Senos",
+      "foodCravings": "Antojos",
+      "heartburn": "Acidez",
+      "backPain": "Dolor de Espalda",
+      "swelling": "Hinchazón",
+      "frequentUrination": "Micción Frecuente",
+      "moodSwings": "Cambios de Humor",
+      "constipation": "Estreñimiento",
+      "headaches": "Dolores de Cabeza",
+      "dizziness": "Mareos"
+    }
+  },
+  "appointments": {
+    "title": "Programar Cita",
+    "upcoming": "Próximas Citas",
+    "noAppointments": "No hay citas programadas aún",
+    "dateTime": "Fecha y Hora",
+    "type": "Tipo de Cita",
+    "selectType": "Seleccionar tipo...",
+    "provider": "Proveedor de Salud",
+    "providerPlaceholder": "Dr. García, Partera Ana...",
+    "notes": "Notas (Opcional)",
+    "notesPlaceholder": "Preguntas que hacer, preocupaciones a discutir...",
+    "scheduleButton": "Programar Cita",
+    "fillRequired": "Por favor completa todos los campos requeridos",
+    "scheduleSuccess": "¡Cita programada exitosamente!",
+    "with": "con",
+    "types": {
+      "regularCheckup": "Chequeo Regular",
+      "ultrasound": "Ultrasonido",
+      "bloodWork": "Análisis de Sangre",
+      "glucoseTest": "Prueba de Glucosa",
+      "specialistConsultation": "Consulta Especialista",
+      "emergencyVisit": "Visita de Emergencia"
+    }
+  },
+  "reminders": {
+    "title": "Recordatorios del Embarazo",
+    "addNew": "Agregar Nuevo Recordatorio",
+    "editReminder": "Editar Recordatorio",
+    "titleRequired": "Título *",
+    "titlePlaceholder": "ej., Cita Médica, Tomar Vitaminas",
+    "type": "Tipo",
+    "dateRequired": "Fecha *",
+    "timeRequired": "Hora *",
+    "recurring": "Recurrente",
+    "priority": "Prioridad",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Detalles adicionales sobre este recordatorio...",
+    "addButton": "Agregar Recordatorio",
+    "updateButton": "Actualizar Recordatorio",
+    "fillRequiredFields": "Por favor completa todos los campos requeridos",
+    "createSuccess": "¡Recordatorio creado exitosamente!",
+    "updateSuccess": "¡Recordatorio actualizado exitosamente!",
+    "deleteSuccess": "¡Recordatorio eliminado exitosamente!",
+    "deleteConfirm": "¿Estás segura de que quieres eliminar este recordatorio?",
+    "markComplete": "¡Recordatorio \"{{title}}\" marcado como {{status}}!",
+    "complete": "completado",
+    "incomplete": "incompleto",
+    "noReminders": "No se encontraron recordatorios",
+    "adjustFilter": "Intenta ajustar tu filtro o agregar un nuevo recordatorio",
+    "filters": {
+      "all": "Todos",
+      "today": "Hoy",
+      "upcoming": "Próximos",
+      "pending": "Pendientes",
+      "completed": "Completados",
+      "appointments": "Citas",
+      "medications": "Medicamentos",
+      "activities": "Actividades"
+    },
+    "types": {
+      "appointment": "Cita Médica",
+      "scan": "Ultrasonido/Escaneo",
+      "medication": "Medicamento",
+      "activity": "Ejercicio/Actividad",
+      "checkup": "Chequeo de Salud",
+      "test": "Examen Médico",
+      "preparation": "Preparación para el Parto",
+      "other": "Otro"
+    },
+    "recurringOptions": {
+      "none": "Una vez",
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual"
+    },
+    "priorityOptions": {
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta"
+    },
+    "stats": {
+      "pending": "Pendientes",
+      "completed": "Completados",
+      "today": "Hoy",
+      "highPriority": "Alta Prioridad"
+    },
+    "timeLabels": {
+      "today": "Hoy",
+      "tomorrow": "Mañana",
+      "inDays": "En {{days}} días",
+      "daysAgo": "Hace {{days}} días"
+    }
+  },
+  "education": {
+    "title": "Artículos Educativos y Consejos",
+    "searchPlaceholder": "Buscar artículos...",
+    "categories": {
+      "medical": "Médico",
+      "nutrition": "Nutrición",
+      "lifestyle": "Estilo de Vida",
+      "preparation": "Preparación"
+    },
+    "trimesterTitles": {
+      "1": "Primer Trimestre",
+      "2": "Segundo Trimestre",
+      "3": "Tercer Trimestre"
+    },
+    "trimesterSubtitles": {
+      "1": "Fundamentos y Desarrollo Temprano",
+      "2": "Crecimiento y Desarrollo",
+      "3": "Preparación y Recta Final"
+    },
+    "readMore": "Leer Más",
+    "collapse": "Colapsar",
+    "keyTips": "Consejos Clave",
+    "relevantArticles": "{{count}} artículos relevantes",
+    "noArticles": "No se encontraron artículos",
+    "noArticlesText": "Intenta ajustar tus criterios de búsqueda o filtro",
+    "disclaimer": {
+      "title": "Recuerda",
+      "text": "Esta información es solo para fines educativos y no debe reemplazar el consejo médico profesional. Siempre consulta con tu proveedor de atención médica sobre cualquier pregunta o preocupación relacionada con tu embarazo. Cada embarazo es único, y tu médico puede proporcionar orientación personalizada basada en tu situación específica.",
+      "badges": {
+        "evidenceBased": "Contenido basado en evidencia",
+        "updated": "Actualizado regularmente",
+        "reviewed": "Revisado por expertos"
+      }
+    }
+  },
+  "profile": {
+    "title": "Perfil",
+    "week": "Semana {{week}}",
+    "due": "Parto {{date}}",
+    "sections": {
+      "personal": "Información Personal",
+      "pregnancy": "Detalles del Embarazo",
+      "medical": "Información Médica",
+      "preferences": "Preferencias y Configuración",
+      "journey": "Resumen del Viaje"
+    },
+    "personalInfo": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "birthDate": "Fecha de Nacimiento",
+      "emergencyContact": "Contacto de Emergencia"
+    },
+    "pregnancyInfo": {
+      "dueDate": "Fecha de Parto",
+      "lastPeriod": "Última Menstruación",
+      "type": "Tipo de Embarazo",
+      "previousPregnancies": "Embarazos Anteriores",
+      "complications": "Complicaciones",
+      "pregnancyTypes": {
+        "singleton": "Un Bebé",
+        "twins": "Gemelos",
+        "triplets": "Trillizos"
+      }
+    },
+    "medicalInfo": {
+      "primaryDoctor": "Médico Principal",
+      "hospital": "Hospital/Clínica",
+      "bloodType": "Tipo de Sangre",
+      "allergies": "Alergias",
+      "medications": "Medicamentos Actuales"
+    },
+    "preferences": {
+      "notifications": "Notificaciones",
+      "units": "Preferencias de Unidades",
+      "privacy": "Privacidad",
+      "weight": "Peso:",
+      "height": "Altura:",
+      "temperature": "Temperatura:",
+      "shareProgress": "Compartir Progreso",
+      "anonymousData": "Datos Anónimos"
+    },
+    "journeyStats": {
+      "weeksCompleted": "Semanas Completadas",
+      "daysRemaining": "Días Restantes",
+      "currentTrimester": "Trimestre Actual",
+      "pregnancyProgress": "Progreso del Embarazo"
+    },
+    "actions": {
+      "saveChanges": "Guardar Cambios",
+      "exportData": "Exportar Datos",
+      "backupProfile": "Respaldar Perfil",
+      "signOut": "Cerrar Sesión",
+      "signOutConfirm": "¿Estás segura de que quieres cerrar sesión?"
+    },
+    "messages": {
+      "profileUpdated": "¡Perfil actualizado exitosamente!",
+      "notificationsUpdated": "¡Preferencias de notificación actualizadas!",
+      "dataExported": "¡Datos del perfil exportados exitosamente!",
+      "backupCreated": "¡Respaldo creado exitosamente!",
+      "signedOut": "¡Sesión cerrada exitosamente!"
+    }
+  },
+  "language": {
+    "select": "Seleccionar Idioma",
+    "english": "English",
+    "spanish": "Español"
+  }
+}

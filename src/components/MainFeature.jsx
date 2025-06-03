@@ -2286,7 +2286,7 @@ return
                       </div>
                       <div className="text-xs text-yellow-600">Today</div>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center border border-purple-100">
+<div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center border border-purple-100">
                       <div className="text-lg font-bold text-purple-600">
                         {reminders.filter(r => r.priority === 'high' && !r.completed).length}
                       </div>

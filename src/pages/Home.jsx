@@ -165,7 +165,7 @@ const Home = () => {
           animate={{ y: 0 }}
           transition={{ delay: 1.4 }}
         >
-          <div className="max-w-7xl mx-auto">
+<div className="max-w-7xl mx-auto">
             <div className="flex justify-around items-center">
               {[
                 { icon: 'Home', label: 'Home', active: true },
