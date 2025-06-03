@@ -182,8 +182,8 @@ repeat: Infinity,
 transition={{ delay: 1.4 }}
         >
           <div className="max-w-7xl mx-auto">
-            <div className="flex justify-around items-center">
-{[
+<div className="flex justify-around items-center">
+              {[
                 { icon: 'Home', label: t('navigation.home'), path: '/', active: location.pathname === '/' },
                 { icon: 'TrendingUp', label: t('navigation.progress'), path: '/progress', active: location.pathname === '/progress' },
                 { icon: 'Calendar', label: t('navigation.calendar'), path: '/calendar', active: location.pathname === '/calendar' },
