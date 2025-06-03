@@ -2827,19 +2827,19 @@ return
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
-                <ApperIcon name="Bell" className="text-white" size={16} />
+            <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="Bell" className="text-white" size={14} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-surface-800">Pregnancy Reminders</h3>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-surface-800">Pregnancy Reminders</h3>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {/* Reminder Form */}
               <div className="lg:col-span-1">
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-lg font-semibold text-surface-700">
+                    <h4 className="text-sm sm:text-base lg:text-lg font-semibold text-surface-700">
                       {editingReminder ? 'Edit Reminder' : 'Add New Reminder'}
                     </h4>
                     <motion.button
@@ -2858,11 +2858,11 @@ return
                           })
                         }
                       }}
-                      className="p-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+                      className="p-1.5 sm:p-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <ApperIcon name={showReminderForm ? "X" : "Plus"} size={16} />
+                      <ApperIcon name={showReminderForm ? "X" : "Plus"} size={14} />
                     </motion.button>
                   </div>
 
@@ -2873,10 +2873,10 @@ return
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="space-y-4"
+                        className="space-y-3 sm:space-y-4"
                       >
                         <div>
-                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                             Title *
                           </label>
                           <input
@@ -2884,18 +2884,18 @@ return
                             value={newReminder.title}
                             onChange={(e) => setNewReminder(prev => ({ ...prev, title: e.target.value }))}
                             placeholder="e.g., Doctor Appointment, Take Vitamins"
-                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                             Type
                           </label>
                           <select
                             value={newReminder.type}
                             onChange={(e) => setNewReminder(prev => ({ ...prev, type: e.target.value }))}
-                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                           >
                             {reminderTypes.map((type) => (
                               <option key={type.value} value={type.value}>{type.label}</option>
@@ -2903,9 +2903,9 @@ return
                           </select>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
                           <div>
-                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                            <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                               Date *
                             </label>
                             <input
@@ -2913,32 +2913,32 @@ return
                               value={newReminder.date}
                               onChange={(e) => setNewReminder(prev => ({ ...prev, date: e.target.value }))}
                               min={format(new Date(), "yyyy-MM-dd")}
-                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                             />
                           </div>
 
                           <div>
-                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                            <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                               Time *
                             </label>
                             <input
                               type="time"
                               value={newReminder.time}
                               onChange={(e) => setNewReminder(prev => ({ ...prev, time: e.target.value }))}
-                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                             />
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3">
                           <div>
-                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                            <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                               Recurring
                             </label>
                             <select
                               value={newReminder.recurring}
                               onChange={(e) => setNewReminder(prev => ({ ...prev, recurring: e.target.value }))}
-                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                             >
                               {recurringOptions.map((option) => (
                                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -2947,13 +2947,13 @@ return
                           </div>
 
                           <div>
-                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                            <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                               Priority
                             </label>
                             <select
                               value={newReminder.priority}
                               onChange={(e) => setNewReminder(prev => ({ ...prev, priority: e.target.value }))}
-                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-xs sm:text-sm"
                             >
                               {priorityOptions.map((option) => (
                                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -2963,27 +2963,27 @@ return
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-surface-700 mb-1 sm:mb-2">
                             Description
                           </label>
                           <textarea
-                            rows={3}
+                            rows={2}
                             value={newReminder.description}
                             onChange={(e) => setNewReminder(prev => ({ ...prev, description: e.target.value }))}
                             placeholder="Additional details about this reminder..."
-                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm"
+                            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-xs sm:text-sm"
                           />
                         </div>
 
-                        <div className="flex space-x-3">
+                        <div className="flex space-x-2 sm:space-x-3">
                           <motion.button
                             onClick={editingReminder ? handleReminderUpdate : handleReminderAdd}
-                            className="flex-1 bg-primary text-white px-4 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors duration-200 text-sm"
+                            className="flex-1 bg-primary text-white px-3 py-2 sm:px-4 sm:py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors duration-200 text-xs sm:text-sm"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <div className="flex items-center justify-center space-x-2">
-                              <ApperIcon name={editingReminder ? "Save" : "Plus"} size={16} />
+                            <div className="flex items-center justify-center space-x-1 sm:space-x-2">
+                              <ApperIcon name={editingReminder ? "Save" : "Plus"} size={14} />
                               <span>{editingReminder ? 'Update' : 'Add'} Reminder</span>
                             </div>
                           </motion.button>
@@ -3003,7 +3003,7 @@ return
                                   priority: 'medium'
                                 })
                               }}
-                              className="px-4 py-3 text-surface-600 border border-surface-300 rounded-xl hover:bg-surface-50 transition-colors text-sm"
+                              className="px-3 py-2 sm:px-4 sm:py-3 text-surface-600 border border-surface-300 rounded-xl hover:bg-surface-50 transition-colors text-xs sm:text-sm"
                               whileHover={{ scale: 1.02 }}
                               whileTap={{ scale: 0.98 }}
                             >
@@ -3019,9 +3019,9 @@ return
 
               {/* Reminders List */}
               <div className="lg:col-span-2">
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {/* Filter Tabs */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     {[
                       { value: 'all', label: 'All' },
                       { value: 'today', label: 'Today' },
@@ -3035,7 +3035,7 @@ return
                       <motion.button
                         key={filter.value}
                         onClick={() => setReminderFilter(filter.value)}
-                        className={`px-3 py-2 text-xs font-medium rounded-lg transition-colors ${
+                        className={`px-2 py-1 sm:px-3 sm:py-2 text-xs font-medium rounded-lg transition-colors ${
                           reminderFilter === filter.value
                             ? 'bg-primary text-white'
                             : 'bg-surface-100 text-surface-600 hover:bg-surface-200'
@@ -3049,18 +3049,18 @@ return
                   </div>
 
                   {/* Reminders List */}
-                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                  <div className="space-y-2 sm:space-y-3 max-h-80 sm:max-h-96 overflow-y-auto">
                     {getFilteredReminders().length === 0 ? (
-                      <div className="text-center py-8 text-surface-500">
-                        <ApperIcon name="Bell" size={48} className="mx-auto mb-3 text-surface-300" />
-                        <p className="font-medium mb-1">No reminders found</p>
-                        <p className="text-sm">Try adjusting your filter or add a new reminder</p>
+                      <div className="text-center py-6 sm:py-8 text-surface-500">
+                        <ApperIcon name="Bell" size={32} className="mx-auto mb-2 sm:mb-3 text-surface-300" />
+                        <p className="font-medium mb-1 text-sm">No reminders found</p>
+                        <p className="text-xs sm:text-sm">Try adjusting your filter or add a new reminder</p>
                       </div>
                     ) : (
                       getFilteredReminders().map((reminder) => (
                         <motion.div
                           key={reminder.id}
-                          className={`bg-surface-50 rounded-xl p-4 border-l-4 hover:shadow-md transition-all duration-200 ${
+                          className={`bg-surface-50 rounded-xl p-3 sm:p-4 border-l-4 hover:shadow-md transition-all duration-200 ${
                             reminder.completed 
                               ? 'border-green-400 opacity-75' 
                               : getPriorityColor(reminder.priority) === 'red'
@@ -3075,48 +3075,48 @@ return
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <div className="flex items-center space-x-3 mb-2">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                              <div className="flex items-center space-x-2 sm:space-x-3 mb-2">
+                                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${
                                   reminder.completed ? 'bg-green-100' : 'bg-primary/10'
                                 }`}>
                                   <ApperIcon 
                                     name={getReminderTypeIcon(reminder.type)} 
-                                    size={16} 
+                                    size={14} 
                                     className={reminder.completed ? 'text-green-600' : 'text-primary'} 
                                   />
                                 </div>
                                 <div className="flex-1">
-                                  <h5 className={`font-semibold text-surface-800 ${
+                                  <h5 className={`text-sm sm:text-base font-semibold text-surface-800 ${
                                     reminder.completed ? 'line-through opacity-70' : ''
                                   }`}>
                                     {reminder.title}
                                   </h5>
-                                  <div className="flex items-center space-x-3 text-xs text-surface-500">
+                                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-surface-500">
                                     <span className="flex items-center space-x-1">
-                                      <ApperIcon name="Calendar" size={12} />
+                                      <ApperIcon name="Calendar" size={10} />
                                       <span>{format(reminder.date, 'MMM dd, yyyy')}</span>
                                     </span>
                                     <span className="flex items-center space-x-1">
-                                      <ApperIcon name="Clock" size={12} />
+                                      <ApperIcon name="Clock" size={10} />
                                       <span>{reminder.time}</span>
                                     </span>
                                     {reminder.recurring !== 'none' && (
                                       <span className="flex items-center space-x-1">
-                                        <ApperIcon name="RotateCcw" size={12} />
+                                        <ApperIcon name="RotateCcw" size={10} />
                                         <span className="capitalize">{reminder.recurring}</span>
                                       </span>
                                     )}
                                   </div>
                                 </div>
-                                <div className="flex items-center space-x-2">
-                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                <div className="flex flex-col sm:flex-row items-end sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
+                                  <span className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full text-xs font-medium ${
                                     getPriorityColor(reminder.priority) === 'red' ? 'bg-red-100 text-red-600' :
                                     getPriorityColor(reminder.priority) === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
                                     'bg-green-100 text-green-600'
                                   }`}>
                                     {reminder.priority}
                                   </span>
-                                  <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                                  <span className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full text-xs font-medium capitalize ${
                                     reminderTypes.find(t => t.value === reminder.type)?.value === 'appointment' ? 'bg-blue-100 text-blue-600' :
                                     reminderTypes.find(t => t.value === reminder.type)?.value === 'medication' ? 'bg-purple-100 text-purple-600' :
                                     reminderTypes.find(t => t.value === reminder.type)?.value === 'scan' ? 'bg-indigo-100 text-indigo-600' :
@@ -3127,7 +3127,7 @@ return
                                 </div>
                               </div>
                               {reminder.description && (
-                                <p className={`text-sm text-surface-600 mb-3 ${
+                                <p className={`text-xs sm:text-sm text-surface-600 mb-2 sm:mb-3 ${
                                   reminder.completed ? 'opacity-70' : ''
                                 }`}>
                                   {reminder.description}
@@ -3136,11 +3136,11 @@ return
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-3 border-t border-surface-200">
-                            <div className="flex items-center space-x-2">
+                          <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-surface-200">
+                            <div className="flex items-center space-x-1 sm:space-x-2">
                               <motion.button
                                 onClick={() => handleReminderComplete(reminder.id)}
-                                className={`p-2 rounded-lg transition-colors ${
+                                className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                                   reminder.completed
                                     ? 'bg-green-100 text-green-600 hover:bg-green-200'
                                     : 'bg-surface-200 text-surface-600 hover:bg-surface-300'
@@ -3148,25 +3148,25 @@ return
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                               >
-                                <ApperIcon name={reminder.completed ? "CheckCircle" : "Circle"} size={16} />
+                                <ApperIcon name={reminder.completed ? "CheckCircle" : "Circle"} size={14} />
                               </motion.button>
 
                               <motion.button
                                 onClick={() => handleReminderEdit(reminder)}
-                                className="p-2 rounded-lg bg-surface-200 text-surface-600 hover:bg-surface-300 transition-colors"
+                                className="p-1.5 sm:p-2 rounded-lg bg-surface-200 text-surface-600 hover:bg-surface-300 transition-colors"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                               >
-                                <ApperIcon name="Edit" size={16} />
+                                <ApperIcon name="Edit" size={14} />
                               </motion.button>
 
                               <motion.button
                                 onClick={() => handleReminderDelete(reminder.id)}
-                                className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                                className="p-1.5 sm:p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                               >
-                                <ApperIcon name="Trash2" size={16} />
+                                <ApperIcon name="Trash2" size={14} />
                               </motion.button>
                             </div>
 
@@ -3188,25 +3188,25 @@ return
 
                   {/* Quick Stats */}
                   <motion.div 
-                    className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4"
+                    className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
                   >
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 text-center border border-blue-100">
-                      <div className="text-lg font-bold text-blue-600">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-blue-100">
+                      <div className="text-base sm:text-lg font-bold text-blue-600">
                         {reminders.filter(r => !r.completed).length}
                       </div>
                       <div className="text-xs text-blue-600">Pending</div>
                     </div>
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 text-center border border-green-100">
-                      <div className="text-lg font-bold text-green-600">
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-green-100">
+                      <div className="text-base sm:text-lg font-bold text-green-600">
                         {reminders.filter(r => r.completed).length}
                       </div>
                       <div className="text-xs text-green-600">Completed</div>
                     </div>
-                    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 text-center border border-yellow-100">
-<div className="text-base sm:text-lg font-bold text-yellow-600">
+                    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center border border-yellow-100">
+                      <div className="text-base sm:text-lg font-bold text-yellow-600">
                         {reminders.filter(r => format(r.date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') && !r.completed).length}
                       </div>
                       <div className="text-xs text-yellow-600">Today</div>
@@ -3221,7 +3221,7 @@ return
                 </div>
               </div>
             </div>
-</motion.div>
+          </motion.div>
         )}
 
         {/* Daily Tips Tab */}
