@@ -97,7 +97,7 @@ return (
             </motion.button>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+<div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Vital Signs */}
             <motion.div
               className="pregnancy-card"

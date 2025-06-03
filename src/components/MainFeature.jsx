@@ -580,7 +580,8 @@ const tabs = [
     { id: 'tips', label: 'Daily Tips', icon: 'Lightbulb' },
     { id: 'dos-donts', label: 'DOs & DON\'Ts', icon: 'Shield' },
     { id: 'education', label: 'Education', icon: 'BookOpen' },
-    { id: 'profile', label: 'Profile', icon: 'User' }
+    { id: 'profile', label: 'Profile', icon: 'User' },
+    { id: 'tasks', label: 'Tasks', icon: 'CheckSquare' }
   ]
 
   // Educational content organized by trimester and week

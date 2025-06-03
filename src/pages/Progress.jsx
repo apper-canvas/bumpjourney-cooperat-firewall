@@ -82,7 +82,7 @@ return (
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-surface-800 mb-8">{t('navigation.progress')}</h2>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+<div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Weight & Measurements Chart */}
             <motion.div
               className="pregnancy-card"

@@ -93,7 +93,7 @@ return (
             </motion.button>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+<div className="grid lg:grid-cols-3 gap-4 sm:gap-6">
             {/* Calendar View */}
             <motion.div
               className="lg:col-span-2 pregnancy-card"

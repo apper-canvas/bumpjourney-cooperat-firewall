@@ -163,14 +163,14 @@ transition={{
         </motion.section>
 
         {/* Navigation Footer */}
-        <motion.nav 
-          className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-pink-100 px-4 py-3 shadow-lg z-20"
+<motion.nav 
+          className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-pink-100 px-2 sm:px-4 py-2 sm:py-3 shadow-lg z-20"
           initial={{ y: 100 }}
           animate={{ y: 0 }}
-transition={{ delay: 1.4 }}
+          transition={{ delay: 1.4 }}
         >
           <div className="max-w-7xl mx-auto">
-<div className="flex justify-around items-center">
+            <div className="flex justify-around items-center">
               {[
                 { icon: 'Home', label: t('navigation.home'), path: '/', active: location.pathname === '/' },
                 { icon: 'TrendingUp', label: t('navigation.progress'), path: '/progress', active: location.pathname === '/progress' },
@@ -181,7 +181,7 @@ transition={{ delay: 1.4 }}
                 <motion.div key={index}>
                   <Link
                     to={item.path}
-                    className={`flex flex-col items-center space-y-1 p-2 rounded-xl transition-all duration-200 ${
+                    className={`flex flex-col items-center space-y-1 p-1 sm:p-2 rounded-xl transition-all duration-200 ${
                       item.active 
                         ? 'text-primary bg-pink-50' 
                         : 'text-surface-500 hover:text-primary hover:bg-pink-50'
@@ -192,7 +192,7 @@ transition={{ delay: 1.4 }}
                       whileTap={{ scale: 0.95 }}
                       className="flex flex-col items-center space-y-1"
                     >
-                      <ApperIcon name={item.icon} size={20} />
+                      <ApperIcon name={item.icon} size={18} />
                       <span className="text-xs font-medium hidden sm:block">{item.label}</span>
                     </motion.div>
                   </Link>
