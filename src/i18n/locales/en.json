@@ -1,88 +1,128 @@
 {
-"app": {
-    "title": "BumpJourney",
-    "subtitle": "Your pregnancy companion",
-    "description": "Track your pregnancy journey with personalized insights, health monitoring, and expert guidance every step of the way."
-  },
-  "navigation": {
-    "language": "Language",
-    "home": "Home",
-    "update": "Update",
-    "loading": "Loading",
-    "error": "Error",
-    "success": "Success",
-    "confirm": "Confirm",
-    "close": "Close",
-    "back": "Back",
-    "next": "Next",
-    "search": "Search",
-    "filter": "Filter",
-    "all": "All",
-    "none": "None",
-    "yes": "Yes",
-    "no": "No"
-  },
   "app": {
     "title": "BumpJourney",
-    "subtitle": "Your pregnancy companion",
+    "tagline": "Your pregnancy companion"
+  },
+  "navigation": {
+    "home": "Home",
+    "progress": "Progress",
+    "calendar": "Calendar",
+    "health": "Health",
+    "profile": "Profile",
+    "language": "Language"
+  },
+  "common": {
     "week": "Week",
     "weeks": "Weeks",
     "day": "Day",
     "days": "Days",
     "month": "Month",
     "months": "Months",
-    "trimester": "Trimester",
-    "dueDate": "Due Date"
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "success": "Success"
   },
-  "navigation": {
-    "home": "Home",
-    "progress": "Progress",
+  "tracker": {
+    "weekly_overview": "Weekly Overview",
+    "baby_development": "Baby Development",
     "symptoms": "Symptoms",
     "appointments": "Appointments",
+    "nutrition": "Nutrition",
     "reminders": "Reminders",
-    "education": "Education",
-    "profile": "Profile",
-    "calendar": "Calendar",
-    "health": "Health"
-  },
-  "home": {
-    "welcome": "Hello, {{name}}! 👋",
-    "weekDescription": "You're {{week}} weeks into your beautiful journey.",
-    "dueDateText": "Your due date is {{date}}",
-    "stats": {
-      "weeks": "Weeks",
-      "daysLeft": "Days Left",
-      "trimester": "Trimester",
-      "size": "Size"
-    },
-    "trimesterLabels": {
-      "1st": "1st",
-      "2nd": "2nd", 
-      "3rd": "3rd"
-    }
-  },
-  "progress": {
-    "title": "Your Pregnancy Progress",
-    "weekOf": "Week {{current}} of {{total}}",
-    "complete": "{{percent}}% Complete",
-    "babyThisWeek": "Your Baby This Week",
-    "sizeOf": "Size of a {{size}}",
-    "length": "Length",
-    "weight": "Weight",
-    "milestones": "Development Milestones",
-    "navigate": "Navigate Weeks",
-    "currentTrimester": "{{trimester}} Trimester"
+    "current_week": "Current Week",
+    "due_date": "Due Date",
+    "trimester": "Trimester",
+    "baby_size": "Baby Size"
   },
   "symptoms": {
-    "title": "Log Your Symptoms",
-    "subtitle": "How are you feeling today?",
-    "severity": "Severity Level: {{level}}/5",
-    "mood": "Overall Mood: {{mood}}",
-    "notes": "Additional Notes",
-    "notesPlaceholder": "Any additional details about how you're feeling...",
-    "logButton": "Log Symptoms",
-    "recentEntries": "Recent Entries",
-    "selectSymptom": "Please select at least one symptom",
+    "morning_sickness": "Morning Sickness",
+    "fatigue": "Fatigue",
+    "back_pain": "Back Pain",
+    "mood_swings": "Mood Swings",
+    "heartburn": "Heartburn",
+    "frequent_urination": "Frequent Urination",
+    "swelling": "Swelling",
+    "insomnia": "Insomnia"
+  },
+  "baby": {
+    "development": "Development",
+    "size": "Size",
+    "weight": "Weight",
+    "length": "Length",
+    "milestones": "Milestones"
+  },
+  "appointments": {
+    "next_appointment": "Next Appointment",
+    "schedule": "Schedule",
+    "doctor": "Doctor",
+    "time": "Time",
+    "type": "Type",
+    "notes": "Notes"
+  },
+  "reminders": {
+    "title": "Reminders",
+    "add_reminder": "Add Reminder",
+    "reminder_title": "Reminder Title",
+    "reminder_date": "Date",
+    "reminder_time": "Time",
+    "reminder_type": "Type",
+    "reminder_description": "Description",
+    "upcoming": "Upcoming",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "this_week": "This Week",
+    "edit_reminder": "Edit Reminder",
+    "delete_reminder": "Delete Reminder",
+    "reminder_saved": "Reminder saved successfully",
+    "reminder_deleted": "Reminder deleted successfully"
+  },
+  "profile": {
+    "personal_info": "Personal Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "due_date": "Due Date",
+    "language_settings": "Language Settings",
+    "preferred_language": "Preferred Language",
+    "current_language": "English",
+    "saved_successfully": "Profile saved successfully"
+  },
+  "progress": {
+    "weight_tracking": "Weight Tracking",
+    "milestones": "Milestones",
+    "first_trimester_complete": "First Trimester Complete",
+    "anatomy_scan": "Anatomy Scan",
+    "halfway_point": "Halfway Point",
+    "viability_milestone": "Viability Milestone",
+    "third_trimester": "Third Trimester"
+  },
+  "calendar": {
+    "add_appointment": "Add Appointment",
+    "upcoming": "Upcoming Appointments"
+  },
+  "health": {
+    "log_symptom": "Log Symptom",
+    "vital_signs": "Vital Signs",
+    "recent_symptoms": "Recent Symptoms",
+    "tips_for_week": "Health Tips for Week",
+    "blood_pressure": "Blood Pressure",
+    "weight": "Weight",
+    "heart_rate": "Heart Rate",
+    "temperature": "Temperature",
+    "add_symptom": "Add New Symptom",
+    "stay_hydrated": "Stay Hydrated",
+    "drink_water": "Drink at least 8 glasses of water daily",
+    "get_rest": "Get Adequate Rest",
+    "sleep_hours": "Aim for 7-9 hours of sleep per night",
+"prenatal_yoga": "Try prenatal yoga or walking"
+  },
+  "symptoms": {
     "logSuccess": "Symptom entry logged successfully!",
     "moodLabels": {
       "1": "Very Poor",

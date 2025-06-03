@@ -183,26 +183,32 @@ transition={{ delay: 1.4 }}
         >
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-around items-center">
-              {[
-                { icon: 'Home', label: 'Home', active: true },
-                { icon: 'TrendingUp', label: 'Progress' },
-                { icon: 'Calendar', label: 'Calendar' },
-                { icon: 'Heart', label: 'Health' },
-                { icon: 'User', label: 'Profile' }
+{[
+                { icon: 'Home', label: t('navigation.home'), path: '/', active: location.pathname === '/' },
+                { icon: 'TrendingUp', label: t('navigation.progress'), path: '/progress', active: location.pathname === '/progress' },
+                { icon: 'Calendar', label: t('navigation.calendar'), path: '/calendar', active: location.pathname === '/calendar' },
+                { icon: 'Heart', label: t('navigation.health'), path: '/health', active: location.pathname === '/health' },
+                { icon: 'User', label: t('navigation.profile'), path: '/profile', active: location.pathname === '/profile' }
               ].map((item, index) => (
-                <motion.button
-                  key={index}
-                  className={`flex flex-col items-center space-y-1 p-2 rounded-xl transition-all duration-200 ${
-                    item.active 
-                      ? 'text-primary bg-pink-50' 
-                      : 'text-surface-500 hover:text-primary hover:bg-pink-50'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ApperIcon name={item.icon} size={20} />
-                  <span className="text-xs font-medium hidden sm:block">{item.label}</span>
-                </motion.button>
+                <motion.div key={index}>
+                  <Link
+                    to={item.path}
+                    className={`flex flex-col items-center space-y-1 p-2 rounded-xl transition-all duration-200 ${
+                      item.active 
+                        ? 'text-primary bg-pink-50' 
+                        : 'text-surface-500 hover:text-primary hover:bg-pink-50'
+                    }`}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex flex-col items-center space-y-1"
+                    >
+                      <ApperIcon name={item.icon} size={20} />
+                      <span className="text-xs font-medium hidden sm:block">{item.label}</span>
+                    </motion.div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>

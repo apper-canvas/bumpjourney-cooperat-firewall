@@ -1,88 +1,127 @@
 {
-"app": {
-    "title": "Viaje del Embarazo",
-    "subtitle": "Tu compañero de embarazo",
-    "description": "Sigue tu viaje de embarazo con información personalizada, monitoreo de salud y orientación experta en cada paso del camino."
-  },
-  "navigation": {
-    "language": "Idioma",
-    "home": "Inicio",
-    "update": "Actualizar",
-    "loading": "Cargando",
-    "error": "Error",
-    "success": "Éxito",
-    "confirm": "Confirmar",
-    "close": "Cerrar",
-    "back": "Atrás",
-    "next": "Siguiente",
-    "search": "Buscar",
-    "filter": "Filtrar",
-    "all": "Todos",
-    "none": "Ninguno",
-    "yes": "Sí",
-    "no": "No"
-  },
   "app": {
     "title": "BumpJourney",
-    "subtitle": "Tu compañera de embarazo",
+    "tagline": "Tu compañera de embarazo"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "progress": "Progreso",
+    "calendar": "Calendario",
+    "health": "Salud",
+    "profile": "Perfil",
+    "language": "Idioma"
+  },
+  "common": {
     "week": "Semana",
     "weeks": "Semanas",
     "day": "Día",
     "days": "Días",
     "month": "Mes",
     "months": "Meses",
-    "trimester": "Trimestre",
-    "dueDate": "Fecha de Parto"
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Añadir",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "success": "Éxito"
   },
-  "navigation": {
-    "home": "Inicio",
-    "progress": "Progreso",
+  "tracker": {
+    "weekly_overview": "Resumen Semanal",
+    "baby_development": "Desarrollo del Bebé",
     "symptoms": "Síntomas",
     "appointments": "Citas",
+    "nutrition": "Nutrición",
     "reminders": "Recordatorios",
-    "education": "Educación",
-    "profile": "Perfil",
-    "calendar": "Calendario",
-    "health": "Salud"
-  },
-  "home": {
-    "welcome": "¡Hola, {{name}}! 👋",
-    "weekDescription": "Estás en la semana {{week}} de tu hermoso viaje.",
-    "dueDateText": "Tu fecha de parto es {{date}}",
-    "stats": {
-      "weeks": "Semanas",
-      "daysLeft": "Días Restantes",
-      "trimester": "Trimestre",
-      "size": "Tamaño"
-    },
-    "trimesterLabels": {
-      "1st": "1er",
-      "2nd": "2do",
-      "3rd": "3er"
-    }
-  },
-  "progress": {
-    "title": "Tu Progreso del Embarazo",
-    "weekOf": "Semana {{current}} de {{total}}",
-    "complete": "{{percent}}% Completado",
-    "babyThisWeek": "Tu Bebé Esta Semana",
-    "sizeOf": "Tamaño de {{size}}",
-    "length": "Longitud",
-    "weight": "Peso",
-    "milestones": "Hitos de Desarrollo",
-    "navigate": "Navegar Semanas",
-    "currentTrimester": "{{trimester}} Trimestre"
+    "current_week": "Semana Actual",
+    "due_date": "Fecha de Parto",
+    "trimester": "Trimestre",
+    "baby_size": "Tamaño del Bebé"
   },
   "symptoms": {
-    "title": "Registrar Síntomas",
-    "subtitle": "¿Cómo te sientes hoy?",
-    "severity": "Nivel de Severidad: {{level}}/5",
-    "mood": "Estado de Ánimo General: {{mood}}",
-    "notes": "Notas Adicionales",
-    "notesPlaceholder": "Detalles adicionales sobre cómo te sientes...",
-    "logButton": "Registrar Síntomas",
-    "recentEntries": "Entradas Recientes",
-    "selectSymptom": "Por favor selecciona al menos un síntoma",
+    "morning_sickness": "Náuseas Matutinas",
+    "fatigue": "Fatiga",
+    "back_pain": "Dolor de Espalda",
+    "mood_swings": "Cambios de Humor",
+    "heartburn": "Acidez",
+    "frequent_urination": "Micción Frecuente",
+    "swelling": "Hinchazón",
+    "insomnia": "Insomnio"
+  },
+  "baby": {
+    "development": "Desarrollo",
+    "size": "Tamaño",
+    "weight": "Peso",
+    "length": "Longitud",
+    "milestones": "Hitos"
+  },
+  "appointments": {
+    "next_appointment": "Próxima Cita",
+    "schedule": "Programar",
+    "doctor": "Doctor",
+    "time": "Hora",
+    "type": "Tipo",
+    "notes": "Notas"
+  },
+  "reminders": {
+    "title": "Recordatorios",
+    "add_reminder": "Añadir Recordatorio",
+    "reminder_title": "Título del Recordatorio",
+    "reminder_date": "Fecha",
+    "reminder_time": "Hora",
+    "reminder_type": "Tipo",
+    "reminder_description": "Descripción",
+    "upcoming": "Próximos",
+    "today": "Hoy",
+    "tomorrow": "Mañana",
+    "this_week": "Esta Semana",
+    "edit_reminder": "Editar Recordatorio",
+    "delete_reminder": "Eliminar Recordatorio",
+    "reminder_saved": "Recordatorio guardado exitosamente",
+    "reminder_deleted": "Recordatorio eliminado exitosamente"
+  },
+  "profile": {
+    "personal_info": "Información Personal",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "due_date": "Fecha de Parto",
+    "language_settings": "Configuración de Idioma",
+    "preferred_language": "Idioma Preferido",
+    "current_language": "Español",
+    "saved_successfully": "Perfil guardado exitosamente"
+  },
+  "progress": {
+    "weight_tracking": "Seguimiento de Peso",
+    "milestones": "Hitos",
+    "first_trimester_complete": "Primer Trimestre Completo",
+    "anatomy_scan": "Ecografía Anatómica",
+    "halfway_point": "Punto Medio",
+    "viability_milestone": "Hito de Viabilidad",
+    "third_trimester": "Tercer Trimestre"
+  },
+  "calendar": {
+    "add_appointment": "Añadir Cita",
+    "upcoming": "Próximas Citas"
+  },
+  "health": {
+    "log_symptom": "Registrar Síntoma",
+    "vital_signs": "Signos Vitales",
+    "recent_symptoms": "Síntomas Recientes",
+    "tips_for_week": "Consejos de Salud para la Semana",
+    "blood_pressure": "Presión Arterial",
+    "weight": "Peso",
+    "heart_rate": "Ritmo Cardíaco",
+    "temperature": "Temperatura",
+    "add_symptom": "Añadir Nuevo Síntoma",
+    "stay_hydrated": "Mantente Hidratada",
+    "drink_water": "Bebe al menos 8 vasos de agua al día",
+    "get_rest": "Descansa Adecuadamente",
+    "sleep_hours": "Procura dormir de 7-9 horas por noche",
+    "gentle_exercise": "Ejercicio Suave",
+"prenatal_yoga": "Prueba yoga prenatal o caminar",
     "logSuccess": "¡Síntomas registrados exitosamente!",
     "moodLabels": {
       "1": "Muy Mal",
