@@ -283,6 +283,7 @@ const tabs = [
     { id: 'appointments', label: 'Appointments', icon: 'Calendar' },
     { id: 'reminders', label: 'Reminders', icon: 'Bell' },
     { id: 'tips', label: 'Daily Tips', icon: 'Lightbulb' },
+    { id: 'dos-donts', label: 'DOs & DON\'Ts', icon: 'Shield' },
     { id: 'education', label: 'Education', icon: 'BookOpen' },
     { id: 'profile', label: 'Profile', icon: 'User' }
   ]
@@ -706,6 +707,39 @@ const tabs = [
       }
       return prev
     })
+}
+
+  // DOs and DON'Ts state
+  const [dosAndDontsFilter, setDosAndDontsFilter] = useState('all')
+  const [dosAndDontsSearch, setDosAndDontsSearch] = useState('')
+  const [helpfulItems, setHelpfulItems] = useState([])
+  const [completedItems, setCompletedItems] = useState([])
+
+  // Handle DOs and DON'Ts interactions
+  const handleItemHelpful = (itemId) => {
+    setHelpfulItems(prev => {
+      const isHelpful = prev.includes(itemId)
+      if (isHelpful) {
+        toast.info('Item removed from helpful list')
+        return prev.filter(id => id !== itemId)
+      } else {
+        toast.success('Item marked as helpful!')
+        return [...prev, itemId]
+      }
+    })
+  }
+
+  const handleItemComplete = (itemId) => {
+    setCompletedItems(prev => {
+      const isCompleted = prev.includes(itemId)
+      if (isCompleted) {
+        toast.info('Item marked as incomplete')
+        return prev.filter(id => id !== itemId)
+      } else {
+        toast.success('Item marked as complete!')
+        return [...prev, itemId]
+      }
+    })
   }
 
   // Get current trimester based on week
@@ -715,6 +749,386 @@ const tabs = [
     return 3
   }
 
+  // DOs and DON'Ts data organized by trimester
+  const dosAndDontsData = {
+    1: { // First Trimester (weeks 1-12)
+      title: "First Trimester DOs and DON'Ts",
+      subtitle: "Essential guidelines for early pregnancy",
+      dos: [
+        {
+          id: 'do-1-1',
+          category: 'nutrition',
+          title: 'Take Prenatal Vitamins',
+          description: 'Start taking prenatal vitamins with at least 400-800 mcg of folic acid daily',
+          explanation: 'Folic acid helps prevent neural tube defects in your developing baby',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'do-1-2',
+          category: 'nutrition',
+          title: 'Eat Folate-Rich Foods',
+          description: 'Include leafy greens, citrus fruits, beans, and fortified cereals in your diet',
+          explanation: 'Natural folate works alongside folic acid supplements for optimal neural development',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'do-1-3',
+          category: 'lifestyle',
+          title: 'Get Adequate Sleep',
+          description: 'Aim for 7-9 hours of quality sleep each night',
+          explanation: 'Your body needs extra rest to support the rapid changes occurring during early pregnancy',
+          importance: 'medium',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'do-1-4',
+          category: 'medical',
+          title: 'Schedule Your First Prenatal Visit',
+          description: 'Book your first prenatal appointment between 8-10 weeks',
+          explanation: 'Early prenatal care helps monitor your health and baby\'s development',
+          importance: 'high',
+          weeks: [6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'do-1-5',
+          category: 'lifestyle',
+          title: 'Stay Hydrated',
+          description: 'Drink 8-10 glasses of water daily',
+          explanation: 'Proper hydration supports increased blood volume and helps prevent constipation',
+          importance: 'medium',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'do-1-6',
+          category: 'activities',
+          title: 'Continue Gentle Exercise',
+          description: 'Maintain safe, moderate exercise like walking or swimming',
+          explanation: 'Regular exercise helps with energy levels, mood, and prepares your body for pregnancy changes',
+          importance: 'medium',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        }
+      ],
+      donts: [
+        {
+          id: 'dont-1-1',
+          category: 'nutrition',
+          title: 'Avoid Alcohol Completely',
+          description: 'No amount of alcohol is safe during pregnancy',
+          explanation: 'Alcohol can cause fetal alcohol spectrum disorders and developmental issues',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'dont-1-2',
+          category: 'lifestyle',
+          title: 'Don\'t Smoke or Use Tobacco',
+          description: 'Quit smoking and avoid secondhand smoke',
+          explanation: 'Smoking increases risk of miscarriage, premature birth, and low birth weight',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'dont-1-3',
+          category: 'nutrition',
+          title: 'Avoid Raw or Undercooked Foods',
+          description: 'Don\'t eat raw fish, eggs, or undercooked meat',
+          explanation: 'These foods may contain harmful bacteria that can cause foodborne illness',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'dont-1-4',
+          category: 'nutrition',
+          title: 'Limit Caffeine Intake',
+          description: 'Keep caffeine under 200mg per day (about 1 cup of coffee)',
+          explanation: 'High caffeine intake may increase risk of miscarriage and low birth weight',
+          importance: 'medium',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'dont-1-5',
+          category: 'activities',
+          title: 'Avoid High-Risk Activities',
+          description: 'Don\'t participate in contact sports or activities with fall risk',
+          explanation: 'These activities increase risk of injury to you and your baby',
+          importance: 'medium',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          id: 'dont-1-6',
+          category: 'medical',
+          title: 'Don\'t Take Unnecessary Medications',
+          description: 'Avoid over-the-counter medications without consulting your doctor',
+          explanation: 'Some medications can be harmful during pregnancy, especially in the first trimester',
+          importance: 'high',
+          weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        }
+      ]
+    },
+    2: { // Second Trimester (weeks 13-26)
+      title: "Second Trimester DOs and DON'Ts",
+      subtitle: "Guidance for the middle months of pregnancy",
+      dos: [
+        {
+          id: 'do-2-1',
+          category: 'nutrition',
+          title: 'Increase Protein Intake',
+          description: 'Aim for 75-100 grams of protein daily from various sources',
+          explanation: 'Protein is crucial for your baby\'s rapid growth during this trimester',
+          importance: 'high',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'do-2-2',
+          category: 'nutrition',
+          title: 'Focus on Iron-Rich Foods',
+          description: 'Include lean meats, beans, spinach, and fortified cereals',
+          explanation: 'Iron prevents anemia and supports increased blood volume',
+          importance: 'high',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'do-2-3',
+          category: 'activities',
+          title: 'Practice Good Posture',
+          description: 'Maintain proper posture as your belly grows',
+          explanation: 'Good posture helps prevent back pain and supports your changing body',
+          importance: 'medium',
+          weeks: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'do-2-4',
+          category: 'medical',
+          title: 'Schedule Anatomy Scan',
+          description: 'Book your detailed ultrasound between 18-22 weeks',
+          explanation: 'This scan checks your baby\'s development and can detect any abnormalities',
+          importance: 'high',
+          weeks: [16, 17, 18, 19, 20, 21, 22]
+        },
+        {
+          id: 'do-2-5',
+          category: 'preparation',
+          title: 'Start Planning Nursery',
+          description: 'Begin thinking about your baby\'s room and essential items',
+          explanation: 'This is a good time to plan while you have more energy',
+          importance: 'low',
+          weeks: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'do-2-6',
+          category: 'lifestyle',
+          title: 'Practice Relaxation Techniques',
+          description: 'Learn deep breathing, meditation, or prenatal yoga',
+          explanation: 'These techniques help manage stress and prepare for labor',
+          importance: 'medium',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        }
+      ],
+      donts: [
+        {
+          id: 'dont-2-1',
+          category: 'nutrition',
+          title: 'Don\'t Eat High-Mercury Fish',
+          description: 'Avoid shark, swordfish, king mackerel, and tilefish',
+          explanation: 'High mercury levels can harm your baby\'s developing nervous system',
+          importance: 'high',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'dont-2-2',
+          category: 'activities',
+          title: 'Avoid Lying Flat on Your Back',
+          description: 'Don\'t lie flat on your back for extended periods after 20 weeks',
+          explanation: 'This position can reduce blood flow to you and your baby',
+          importance: 'medium',
+          weeks: [20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'dont-2-3',
+          category: 'activities',
+          title: 'Don\'t Overexert Yourself',
+          description: 'Avoid activities that leave you breathless or overly tired',
+          explanation: 'Your body is working harder, so listen to its signals',
+          importance: 'medium',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'dont-2-4',
+          category: 'lifestyle',
+          title: 'Don\'t Use Hot Tubs or Saunas',
+          description: 'Avoid activities that raise your core body temperature',
+          explanation: 'Overheating can be harmful to your baby\'s development',
+          importance: 'medium',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'dont-2-5',
+          category: 'nutrition',
+          title: 'Don\'t Skip Meals',
+          description: 'Avoid going long periods without eating',
+          explanation: 'Regular meals help maintain stable blood sugar and energy levels',
+          importance: 'medium',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        },
+        {
+          id: 'dont-2-6',
+          category: 'lifestyle',
+          title: 'Don\'t Ignore Warning Signs',
+          description: 'Don\'t dismiss severe headaches, vision changes, or persistent pain',
+          explanation: 'These could be signs of serious pregnancy complications',
+          importance: 'high',
+          weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+        }
+      ]
+    },
+    3: { // Third Trimester (weeks 27-40)
+      title: "Third Trimester DOs and DON'Ts",
+      subtitle: "Final preparations for birth and baby",
+      dos: [
+        {
+          id: 'do-3-1',
+          category: 'preparation',
+          title: 'Create Your Birth Plan',
+          description: 'Discuss birth preferences with your healthcare provider',
+          explanation: 'Having a plan helps you feel prepared while staying flexible for changes',
+          importance: 'high',
+          weeks: [28, 29, 30, 31, 32, 33, 34, 35, 36]
+        },
+        {
+          id: 'do-3-2',
+          category: 'preparation',
+          title: 'Pack Your Hospital Bag',
+          description: 'Have your hospital bag ready by 36 weeks',
+          explanation: 'Being prepared reduces stress when labor begins',
+          importance: 'high',
+          weeks: [32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'do-3-3',
+          category: 'nutrition',
+          title: 'Increase Calcium Intake',
+          description: 'Ensure adequate calcium for your baby\'s bone development',
+          explanation: 'Your baby\'s bones are hardening and need lots of calcium',
+          importance: 'high',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'do-3-4',
+          category: 'medical',
+          title: 'Monitor Baby\'s Movements',
+          description: 'Pay attention to your baby\'s daily movement patterns',
+          explanation: 'Changes in movement patterns can indicate potential problems',
+          importance: 'high',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'do-3-5',
+          category: 'preparation',
+          title: 'Learn About Breastfeeding',
+          description: 'Take a breastfeeding class or read about breastfeeding basics',
+          explanation: 'Preparation helps with successful breastfeeding initiation',
+          importance: 'medium',
+          weeks: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'do-3-6',
+          category: 'lifestyle',
+          title: 'Practice Breathing Exercises',
+          description: 'Learn and practice breathing techniques for labor',
+          explanation: 'Breathing techniques help manage pain and stress during labor',
+          importance: 'medium',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        }
+      ],
+      donts: [
+        {
+          id: 'dont-3-1',
+          category: 'activities',
+          title: 'Don\'t Travel Far from Home',
+          description: 'Avoid long-distance travel, especially after 36 weeks',
+          explanation: 'You want to be near your healthcare provider when labor begins',
+          importance: 'high',
+          weeks: [34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'dont-3-2',
+          category: 'lifestyle',
+          title: 'Don\'t Ignore Signs of Labor',
+          description: 'Don\'t dismiss regular contractions, water breaking, or bloody show',
+          explanation: 'Recognizing labor signs ensures you get to the hospital in time',
+          importance: 'high',
+          weeks: [34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'dont-3-3',
+          category: 'activities',
+          title: 'Don\'t Lift Heavy Objects',
+          description: 'Avoid lifting anything over 20-25 pounds',
+          explanation: 'Heavy lifting can strain your back and potentially trigger early labor',
+          importance: 'medium',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'dont-3-4',
+          category: 'lifestyle',
+          title: 'Don\'t Sleep on Your Back',
+          description: 'Sleep on your side, preferably left side',
+          explanation: 'Back sleeping can reduce blood flow to your baby',
+          importance: 'medium',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'dont-3-5',
+          category: 'preparation',
+          title: 'Don\'t Wait to Install Car Seat',
+          description: 'Don\'t leave car seat installation until the last minute',
+          explanation: 'You\'ll need a properly installed car seat before leaving the hospital',
+          importance: 'high',
+          weeks: [32, 33, 34, 35, 36, 37, 38, 39, 40]
+        },
+        {
+          id: 'dont-3-6',
+          category: 'medical',
+          title: 'Don\'t Skip Prenatal Appointments',
+          description: 'Don\'t miss your increased frequency of prenatal visits',
+          explanation: 'Regular monitoring is crucial as you approach your due date',
+          importance: 'high',
+          weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        }
+      ]
+    }
+  }
+
+  // Get DOs and DON'Ts for current week
+  const getDosAndDontsForWeek = () => {
+    const currentTrimester = getCurrentTrimester(currentWeek)
+    const trimesterData = dosAndDontsData[currentTrimester]
+    
+    if (!trimesterData) return { dos: [], donts: [] }
+
+    const dos = trimesterData.dos.filter(item => item.weeks.includes(currentWeek))
+    const donts = trimesterData.donts.filter(item => item.weeks.includes(currentWeek))
+    
+    return { dos, donts }
+  }
+
+  // Filter DOs and DON'Ts by category and search
+  const getFilteredDosAndDonts = () => {
+    const { dos, donts } = getDosAndDontsForWeek()
+    const allItems = [...dos, ...donts]
+    
+    return allItems.filter(item => {
+      const matchesCategory = dosAndDontsFilter === 'all' || item.category === dosAndDontsFilter
+      const matchesSearch = dosAndDontsSearch === '' || 
+        item.title.toLowerCase().includes(dosAndDontsSearch.toLowerCase()) ||
+        item.description.toLowerCase().includes(dosAndDontsSearch.toLowerCase()) ||
+        item.explanation.toLowerCase().includes(dosAndDontsSearch.toLowerCase())
+      
+      return matchesCategory && matchesSearch
+    })
+  }
   // Filter articles based on current week, search term, and category
   const getRelevantArticles = () => {
     const currentTrimester = getCurrentTrimester(currentWeek)
@@ -2722,6 +3136,365 @@ return
               <p className="text-blue-700 text-xs leading-relaxed">
                 These tips are general recommendations and should not replace professional medical advice. 
                 Always consult with your healthcare provider about any concerns or questions regarding your pregnancy.
+              </p>
+            </motion.div>
+</motion.div>
+        )}
+
+        {/* DOs and DON'Ts Tab */}
+        {activeTab === 'dos-donts' && (
+          <motion.div
+            key="dos-donts"
+            className="pregnancy-card"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="Shield" className="text-white" size={16} />
+              </div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-surface-800">DOs and DON'Ts for Week {currentWeek}</h3>
+                <p className="text-sm text-surface-600">
+                  {dosAndDontsData[getCurrentTrimester(currentWeek)]?.title}
+                </p>
+              </div>
+            </div>
+
+            {/* Search and Filter */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div className="relative">
+                <ApperIcon 
+                  name="Search" 
+                  size={18} 
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-surface-400" 
+                />
+                <input
+                  type="text"
+                  placeholder="Search DOs and DON'Ts..."
+                  value={dosAndDontsSearch}
+                  onChange={(e) => setDosAndDontsSearch(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base"
+                />
+              </div>
+              
+              <select
+                value={dosAndDontsFilter}
+                onChange={(e) => setDosAndDontsFilter(e.target.value)}
+                className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base"
+              >
+                <option value="all">All Categories</option>
+                <option value="nutrition">Nutrition</option>
+                <option value="lifestyle">Lifestyle</option>
+                <option value="activities">Activities</option>
+                <option value="medical">Medical Care</option>
+                <option value="preparation">Preparation</option>
+              </select>
+            </div>
+
+            {/* Trimester Overview */}
+            <motion.div 
+              className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-4 mb-6 border border-green-100"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center">
+                  <ApperIcon name="Info" className="text-white" size={12} />
+                </div>
+                <h4 className="text-lg font-semibold text-surface-800">
+                  {dosAndDontsData[getCurrentTrimester(currentWeek)]?.title}
+                </h4>
+              </div>
+              <p className="text-surface-600 text-sm">
+                {dosAndDontsData[getCurrentTrimester(currentWeek)]?.subtitle}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="bg-white px-3 py-1 rounded-full text-xs font-medium text-green-600 border border-green-200">
+                  Week {currentWeek}
+                </span>
+                <span className="bg-white px-3 py-1 rounded-full text-xs font-medium text-blue-600 border border-blue-200">
+                  {getFilteredDosAndDonts().length} guidelines
+                </span>
+              </div>
+            </motion.div>
+
+            {/* DOs and DON'Ts Grid */}
+            <div className="space-y-6">
+              {getFilteredDosAndDonts().length === 0 ? (
+                <div className="text-center py-12">
+                  <ApperIcon name="Shield" size={48} className="mx-auto mb-4 text-surface-300" />
+                  <h4 className="text-lg font-medium text-surface-600 mb-2">No guidelines found</h4>
+                  <p className="text-surface-500 text-sm">
+                    Try adjusting your search or filter criteria
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* DOs Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 mb-4">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <ApperIcon name="Check" className="text-white" size={14} />
+                      </div>
+                      <h4 className="text-lg font-semibold text-green-700">DOs</h4>
+                      <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs font-medium">
+                        {getFilteredDosAndDonts().filter(item => dosAndDontsData[getCurrentTrimester(currentWeek)]?.dos.includes(item)).length}
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      {getFilteredDosAndDonts()
+                        .filter(item => dosAndDontsData[getCurrentTrimester(currentWeek)]?.dos.includes(item))
+                        .map((item, index) => (
+                          <motion.div
+                            key={item.id}
+                            className="bg-green-50 border border-green-200 rounded-xl p-4 hover:shadow-md transition-all duration-200"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-2 mb-2">
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    item.category === 'nutrition' ? 'bg-green-100 text-green-600' :
+                                    item.category === 'lifestyle' ? 'bg-blue-100 text-blue-600' :
+                                    item.category === 'activities' ? 'bg-purple-100 text-purple-600' :
+                                    item.category === 'medical' ? 'bg-red-100 text-red-600' :
+                                    'bg-orange-100 text-orange-600'
+                                  }`}>
+                                    {item.category}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    item.importance === 'high' ? 'bg-red-100 text-red-600' :
+                                    item.importance === 'medium' ? 'bg-yellow-100 text-yellow-600' :
+                                    'bg-green-100 text-green-600'
+                                  }`}>
+                                    {item.importance} priority
+                                  </span>
+                                </div>
+                                <h5 className="font-semibold text-green-800 mb-2">{item.title}</h5>
+                                <p className="text-green-700 text-sm mb-2">{item.description}</p>
+                                <p className="text-green-600 text-xs italic">{item.explanation}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-3 border-t border-green-200">
+                              <div className="flex items-center space-x-2">
+                                <motion.button
+                                  onClick={() => handleItemHelpful(item.id)}
+                                  className={`p-2 rounded-lg transition-colors ${
+                                    helpfulItems.includes(item.id)
+                                      ? 'bg-green-200 text-green-700'
+                                      : 'bg-green-100 text-green-600 hover:bg-green-200'
+                                  }`}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  <ApperIcon name="ThumbsUp" size={16} />
+                                </motion.button>
+
+                                <motion.button
+                                  onClick={() => handleItemComplete(item.id)}
+                                  className={`p-2 rounded-lg transition-colors ${
+                                    completedItems.includes(item.id)
+                                      ? 'bg-green-200 text-green-700'
+                                      : 'bg-green-100 text-green-600 hover:bg-green-200'
+                                  }`}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  <ApperIcon name={completedItems.includes(item.id) ? "CheckCircle" : "Circle"} size={16} />
+                                </motion.button>
+                              </div>
+
+                              <div className="text-xs text-green-600">
+                                Week {currentWeek}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                    </div>
+                  </div>
+
+                  {/* DON'Ts Section */}
+                  <div>
+                    <div className="flex items-center space-x-2 mb-4">
+                      <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                        <ApperIcon name="X" className="text-white" size={14} />
+                      </div>
+                      <h4 className="text-lg font-semibold text-red-700">DON'Ts</h4>
+                      <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs font-medium">
+                        {getFilteredDosAndDonts().filter(item => dosAndDontsData[getCurrentTrimester(currentWeek)]?.donts.includes(item)).length}
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      {getFilteredDosAndDonts()
+                        .filter(item => dosAndDontsData[getCurrentTrimester(currentWeek)]?.donts.includes(item))
+                        .map((item, index) => (
+                          <motion.div
+                            key={item.id}
+                            className="bg-red-50 border border-red-200 rounded-xl p-4 hover:shadow-md transition-all duration-200"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-2 mb-2">
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    item.category === 'nutrition' ? 'bg-red-100 text-red-600' :
+                                    item.category === 'lifestyle' ? 'bg-blue-100 text-blue-600' :
+                                    item.category === 'activities' ? 'bg-purple-100 text-purple-600' :
+                                    item.category === 'medical' ? 'bg-red-100 text-red-600' :
+                                    'bg-orange-100 text-orange-600'
+                                  }`}>
+                                    {item.category}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    item.importance === 'high' ? 'bg-red-100 text-red-600' :
+                                    item.importance === 'medium' ? 'bg-yellow-100 text-yellow-600' :
+                                    'bg-green-100 text-green-600'
+                                  }`}>
+                                    {item.importance} priority
+                                  </span>
+                                </div>
+                                <h5 className="font-semibold text-red-800 mb-2">{item.title}</h5>
+                                <p className="text-red-700 text-sm mb-2">{item.description}</p>
+                                <p className="text-red-600 text-xs italic">{item.explanation}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-3 border-t border-red-200">
+                              <div className="flex items-center space-x-2">
+                                <motion.button
+                                  onClick={() => handleItemHelpful(item.id)}
+                                  className={`p-2 rounded-lg transition-colors ${
+                                    helpfulItems.includes(item.id)
+                                      ? 'bg-red-200 text-red-700'
+                                      : 'bg-red-100 text-red-600 hover:bg-red-200'
+                                  }`}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  <ApperIcon name="ThumbsUp" size={16} />
+                                </motion.button>
+
+                                <motion.button
+                                  onClick={() => handleItemComplete(item.id)}
+                                  className={`p-2 rounded-lg transition-colors ${
+                                    completedItems.includes(item.id)
+                                      ? 'bg-red-200 text-red-700'
+                                      : 'bg-red-100 text-red-600 hover:bg-red-200'
+                                  }`}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  <ApperIcon name={completedItems.includes(item.id) ? "CheckCircle" : "Circle"} size={16} />
+                                </motion.button>
+                              </div>
+
+                              <div className="text-xs text-red-600">
+                                Week {currentWeek}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Progress Summary */}
+            <motion.div 
+              className="mt-8 bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-6 border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center">
+                  <ApperIcon name="TrendingUp" className="text-white" size={16} />
+                </div>
+                <h4 className="text-lg font-semibold text-surface-800">Your Guidelines Progress</h4>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600 mb-1">
+                    {getDosAndDontsForWeek().dos.length}
+                  </div>
+                  <div className="text-sm text-surface-600">DOs This Week</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-red-600 mb-1">
+                    {getDosAndDontsForWeek().donts.length}
+                  </div>
+                  <div className="text-sm text-surface-600">DON'Ts This Week</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600 mb-1">
+                    {helpfulItems.length}
+                  </div>
+                  <div className="text-sm text-surface-600">Marked Helpful</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-600 mb-1">
+                    {completedItems.filter(itemId => 
+                      getFilteredDosAndDonts().some(item => item.id === itemId)
+                    ).length}
+                  </div>
+                  <div className="text-sm text-surface-600">Completed</div>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-green-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-surface-700">Weekly Completion</span>
+                  <span className="text-sm text-surface-600">
+                    {Math.round((completedItems.filter(itemId => 
+                      getFilteredDosAndDonts().some(item => item.id === itemId)
+                    ).length / Math.max(getFilteredDosAndDonts().length, 1)) * 100)}%
+                  </span>
+                </div>
+                <div className="w-full bg-green-200 rounded-full h-2">
+                  <motion.div 
+                    className="bg-gradient-to-r from-green-400 to-blue-400 h-2 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ 
+                      width: `${(completedItems.filter(itemId => 
+                        getFilteredDosAndDonts().some(item => item.id === itemId)
+                      ).length / Math.max(getFilteredDosAndDonts().length, 1)) * 100}%` 
+                    }}
+                    transition={{ duration: 1, delay: 0.8 }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Important Notice */}
+            <motion.div 
+              className="mt-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 border border-yellow-100"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="flex items-center space-x-2 mb-2">
+                <ApperIcon name="AlertTriangle" className="text-yellow-600" size={16} />
+                <h5 className="text-sm font-semibold text-yellow-800">Important Notice</h5>
+              </div>
+              <p className="text-yellow-700 text-xs leading-relaxed">
+                These guidelines are general recommendations and should not replace professional medical advice. 
+                Every pregnancy is unique. Always consult with your healthcare provider about any concerns or questions 
+                regarding your specific situation. When in doubt, contact your doctor immediately.
               </p>
             </motion.div>
           </motion.div>
