@@ -132,9 +132,60 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
     recurring: 'none',
     priority: 'medium'
   })
-  const [showReminderForm, setShowReminderForm] = useState(false)
+const [showReminderForm, setShowReminderForm] = useState(false)
   const [editingReminder, setEditingReminder] = useState(null)
   const [reminderFilter, setReminderFilter] = useState('all')
+  
+  // Task Manager state
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: 'Schedule First Prenatal Appointment',
+      description: 'Book appointment with OB/GYN between 8-10 weeks',
+      category: 'medical',
+      priority: 'high',
+      dueDate: new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)),
+      status: 'pending',
+      completed: false,
+      createdAt: new Date()
+    },
+    {
+      id: 2,
+      title: 'Start Taking Prenatal Vitamins',
+      description: 'Begin daily prenatal vitamins with folic acid',
+      category: 'health',
+      priority: 'high',
+      dueDate: new Date(),
+      status: 'completed',
+      completed: true,
+      createdAt: new Date(Date.now() - (2 * 24 * 60 * 60 * 1000))
+    },
+    {
+      id: 3,
+      title: 'Research Pediatricians',
+      description: 'Find and interview potential pediatricians',
+      category: 'preparation',
+      priority: 'medium',
+      dueDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)),
+      status: 'pending',
+      completed: false,
+      createdAt: new Date()
+    }
+  ])
+  const [newTask, setNewTask] = useState({
+    title: '',
+    description: '',
+    category: 'general',
+    priority: 'medium',
+    dueDate: '',
+    status: 'pending'
+  })
+  const [showTaskForm, setShowTaskForm] = useState(false)
+  const [editingTask, setEditingTask] = useState(null)
+  const [taskFilter, setTaskFilter] = useState('all')
+  const [taskSort, setTaskSort] = useState('dueDate')
+  const [taskSearch, setTaskSearch] = useState('')
+  
   // Common symptoms
   const commonSymptoms = [
     'Nausea', 'Fatigue', 'Breast Tenderness', 'Food Cravings', 
@@ -190,8 +241,34 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
   const priorityOptions = [
     { value: 'low', label: 'Low', color: 'green' },
     { value: 'medium', label: 'Medium', color: 'yellow' },
-    { value: 'high', label: 'High', color: 'red' }
-]
+{ value: 'high', label: 'High', color: 'red' }
+  ]
+
+  // Task categories and options
+  const taskCategories = [
+    { value: 'general', label: 'General', icon: 'List' },
+    { value: 'medical', label: 'Medical', icon: 'Heart' },
+    { value: 'health', label: 'Health & Wellness', icon: 'Activity' },
+    { value: 'preparation', label: 'Baby Preparation', icon: 'Package' },
+    { value: 'nutrition', label: 'Nutrition', icon: 'Apple' },
+    { value: 'exercise', label: 'Exercise', icon: 'Zap' },
+    { value: 'education', label: 'Education', icon: 'BookOpen' },
+    { value: 'shopping', label: 'Shopping', icon: 'ShoppingCart' },
+    { value: 'legal', label: 'Legal/Admin', icon: 'FileText' }
+  ]
+
+  const taskPriorities = [
+    { value: 'low', label: 'Low' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'high', label: 'High' }
+  ]
+
+  const taskStatuses = [
+    { value: 'pending', label: 'Pending' },
+    { value: 'in-progress', label: 'In Progress' },
+    { value: 'completed', label: 'Completed' },
+    { value: 'cancelled', label: 'Cancelled' }
+  ]
 
   // Baby development data
   const babyDevelopment = {
@@ -276,7 +353,225 @@ const handleAppointmentAdd = () => {
         ? prev.filter(s => s !== symptom)
         : [...prev, symptom]
     )
+}
+
+  // Task helper functions
+  const getTaskStats = () => {
+    const total = tasks.length
+    const completed = tasks.filter(task => task.completed).length
+    const pending = tasks.filter(task => !task.completed).length
+    const overdue = tasks.filter(task => !task.completed && new Date(task.dueDate) < new Date()).length
+    const today = tasks.filter(task => !task.completed && format(new Date(task.dueDate), 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')).length
+    
+    return { total, completed, pending, overdue, today }
   }
+
+  const isTaskOverdue = (task) => {
+    return !task.completed && new Date(task.dueDate) < new Date()
+  }
+
+  const getTaskPriorityColor = (priority) => {
+    switch (priority) {
+      case 'high': return 'red'
+      case 'medium': return 'yellow'
+      case 'low': return 'green'
+      default: return 'gray'
+    }
+  }
+
+  const getTaskStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return 'green'
+      case 'in-progress': return 'blue'
+      case 'pending': return 'yellow'
+      case 'cancelled': return 'gray'
+      default: return 'gray'
+    }
+  }
+
+  const getTaskCategoryColor = (category) => {
+    switch (category) {
+      case 'medical': return 'red'
+      case 'health': return 'blue'
+      case 'preparation': return 'green'
+      case 'nutrition': return 'purple'
+      case 'exercise': return 'indigo'
+      case 'education': return 'orange'
+      case 'shopping': return 'teal'
+      case 'legal': return 'gray'
+      default: return 'gray'
+    }
+  }
+
+  const getTaskCategoryIcon = (category) => {
+    const cat = taskCategories.find(c => c.value === category)
+    return cat ? cat.icon : 'List'
+  }
+
+  const getFilteredTasks = () => {
+    let filtered = tasks
+
+    // Apply search filter
+    if (taskSearch) {
+      filtered = filtered.filter(task =>
+        task.title.toLowerCase().includes(taskSearch.toLowerCase()) ||
+        task.description.toLowerCase().includes(taskSearch.toLowerCase())
+      )
+    }
+
+    // Apply category/status filter
+    if (taskFilter !== 'all') {
+      if (taskFilter === 'completed') {
+        filtered = filtered.filter(task => task.completed)
+      } else if (taskFilter === 'pending') {
+        filtered = filtered.filter(task => !task.completed)
+      } else if (taskFilter === 'overdue') {
+        filtered = filtered.filter(task => isTaskOverdue(task))
+      } else if (taskFilter === 'today') {
+        filtered = filtered.filter(task => 
+          !task.completed && format(new Date(task.dueDate), 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')
+        )
+      } else if (taskFilter === 'upcoming') {
+        filtered = filtered.filter(task => 
+          !task.completed && new Date(task.dueDate) > new Date()
+        )
+      } else {
+        // Filter by category
+        filtered = filtered.filter(task => task.category === taskFilter)
+      }
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      switch (taskSort) {
+        case 'dueDate':
+          return new Date(a.dueDate) - new Date(b.dueDate)
+        case 'priority':
+          const priorityOrder = { high: 3, medium: 2, low: 1 }
+          return priorityOrder[b.priority] - priorityOrder[a.priority]
+        case 'title':
+          return a.title.localeCompare(b.title)
+        case 'created':
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        default:
+          return 0
+      }
+    })
+
+    return filtered
+  }
+
+  // Task handlers
+  const handleTaskAdd = () => {
+    if (!newTask.title || !newTask.dueDate) {
+      toast.error('Please fill in all required fields')
+      return
+    }
+
+    const task = {
+      id: Date.now(),
+      ...newTask,
+      dueDate: new Date(newTask.dueDate),
+      completed: newTask.status === 'completed',
+      createdAt: new Date()
+    }
+
+    setTasks([...tasks, task])
+    setNewTask({
+      title: '',
+      description: '',
+      category: 'general',
+      priority: 'medium',
+      dueDate: '',
+      status: 'pending'
+    })
+    setShowTaskForm(false)
+    toast.success('Task added successfully!')
+  }
+
+  const handleTaskUpdate = () => {
+    if (!newTask.title || !newTask.dueDate) {
+      toast.error('Please fill in all required fields')
+      return
+    }
+
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === editingTask
+          ? {
+              ...task,
+              ...newTask,
+              dueDate: new Date(newTask.dueDate),
+              completed: newTask.status === 'completed'
+            }
+          : task
+      )
+    )
+
+    setNewTask({
+      title: '',
+      description: '',
+      category: 'general',
+      priority: 'medium',
+      dueDate: '',
+      status: 'pending'
+    })
+    setShowTaskForm(false)
+    setEditingTask(null)
+    toast.success('Task updated successfully!')
+  }
+
+  const handleTaskEdit = (task) => {
+    setEditingTask(task.id)
+    setNewTask({
+      title: task.title,
+      description: task.description,
+      category: task.category,
+      priority: task.priority,
+      dueDate: format(task.dueDate, 'yyyy-MM-dd'),
+      status: task.status
+    })
+    setShowTaskForm(true)
+  }
+
+  const handleTaskDelete = (id) => {
+    if (confirm('Are you sure you want to delete this task?')) {
+      setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
+      toast.success('Task deleted successfully!')
+    }
+  }
+
+  const handleTaskToggle = (id) => {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === id
+          ? { 
+              ...task, 
+              completed: !task.completed,
+              status: !task.completed ? 'completed' : 'pending'
+            }
+          : task
+      )
+    )
+    const task = tasks.find(t => t.id === id)
+    toast.success(`Task "${task.title}" marked as ${task.completed ? 'incomplete' : 'complete'}!`)
+  }
+
+  const handleTaskStatusChange = (id, newStatus) => {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === id
+          ? { 
+              ...task, 
+              status: newStatus,
+              completed: newStatus === 'completed'
+            }
+          : task
+      )
+    )
+    toast.success('Task status updated!')
+  }
+
 const tabs = [
     { id: 'progress', label: 'Progress', icon: 'TrendingUp' },
     { id: 'symptoms', label: 'Symptoms', icon: 'Heart' },
@@ -3497,6 +3792,485 @@ return
                 regarding your specific situation. When in doubt, contact your doctor immediately.
               </p>
             </motion.div>
+          </motion.div>
+)}
+
+        {/* Task Manager Tab */}
+        {activeTab === 'tasks' && (
+          <motion.div
+            key="tasks"
+            className="pregnancy-card"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="CheckSquare" className="text-white" size={16} />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-surface-800">Pregnancy Task Manager</h3>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
+              {/* Task Form Sidebar */}
+              <div className="lg:col-span-1">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-lg font-semibold text-surface-700">
+                      {editingTask ? 'Edit Task' : 'Add New Task'}
+                    </h4>
+                    <motion.button
+                      onClick={() => {
+                        setShowTaskForm(!showTaskForm)
+                        if (showTaskForm) {
+                          setEditingTask(null)
+                          setNewTask({
+                            title: '',
+                            description: '',
+                            category: 'general',
+                            priority: 'medium',
+                            dueDate: '',
+                            status: 'pending'
+                          })
+                        }
+                      }}
+                      className="p-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ApperIcon name={showTaskForm ? "X" : "Plus"} size={16} />
+                    </motion.button>
+                  </div>
+
+                  <AnimatePresence>
+                    {showTaskForm && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-4"
+                      >
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Task Title *
+                          </label>
+                          <input
+                            type="text"
+                            value={newTask.title}
+                            onChange={(e) => setNewTask(prev => ({ ...prev, title: e.target.value }))}
+                            placeholder="e.g., Schedule doctor appointment"
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Description
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={newTask.description}
+                            onChange={(e) => setNewTask(prev => ({ ...prev, description: e.target.value }))}
+                            placeholder="Additional details about this task..."
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Category
+                          </label>
+                          <select
+                            value={newTask.category}
+                            onChange={(e) => setNewTask(prev => ({ ...prev, category: e.target.value }))}
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                          >
+                            {taskCategories.map((category) => (
+                              <option key={category.value} value={category.value}>{category.label}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Priority
+                            </label>
+                            <select
+                              value={newTask.priority}
+                              onChange={(e) => setNewTask(prev => ({ ...prev, priority: e.target.value }))}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            >
+                              {taskPriorities.map((priority) => (
+                                <option key={priority.value} value={priority.value}>{priority.label}</option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Status
+                            </label>
+                            <select
+                              value={newTask.status}
+                              onChange={(e) => setNewTask(prev => ({ ...prev, status: e.target.value }))}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            >
+                              {taskStatuses.map((status) => (
+                                <option key={status.value} value={status.value}>{status.label}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Due Date *
+                          </label>
+                          <input
+                            type="date"
+                            value={newTask.dueDate}
+                            onChange={(e) => setNewTask(prev => ({ ...prev, dueDate: e.target.value }))}
+                            min={format(new Date(), "yyyy-MM-dd")}
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                          />
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <motion.button
+                            onClick={editingTask ? handleTaskUpdate : handleTaskAdd}
+                            className="flex-1 bg-primary text-white px-4 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors duration-200 text-sm"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className="flex items-center justify-center space-x-2">
+                              <ApperIcon name={editingTask ? "Save" : "Plus"} size={16} />
+                              <span>{editingTask ? 'Update' : 'Add'} Task</span>
+                            </div>
+                          </motion.button>
+
+                          {editingTask && (
+                            <motion.button
+                              onClick={() => {
+                                setEditingTask(null)
+                                setShowTaskForm(false)
+                                setNewTask({
+                                  title: '',
+                                  description: '',
+                                  category: 'general',
+                                  priority: 'medium',
+                                  dueDate: '',
+                                  status: 'pending'
+                                })
+                              }}
+                              className="px-4 py-3 text-surface-600 border border-surface-300 rounded-xl hover:bg-surface-50 transition-colors text-sm"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              Cancel
+                            </motion.button>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Task Statistics */}
+                  <motion.div 
+                    className="mt-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <h5 className="text-sm font-semibold text-surface-700 mb-3">Task Overview</h5>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-surface-600">Total Tasks:</span>
+                        <span className="font-medium text-indigo-600">{getTaskStats().total}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-surface-600">Completed:</span>
+                        <span className="font-medium text-green-600">{getTaskStats().completed}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-surface-600">Pending:</span>
+                        <span className="font-medium text-yellow-600">{getTaskStats().pending}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-surface-600">Overdue:</span>
+                        <span className="font-medium text-red-600">{getTaskStats().overdue}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-surface-600">Due Today:</span>
+                        <span className="font-medium text-orange-600">{getTaskStats().today}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-indigo-200">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-medium text-surface-700">Completion Rate</span>
+                        <span className="text-xs text-surface-600">
+                          {getTaskStats().total > 0 ? Math.round((getTaskStats().completed / getTaskStats().total) * 100) : 0}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-indigo-200 rounded-full h-2">
+                        <motion.div 
+                          className="bg-gradient-to-r from-indigo-400 to-purple-400 h-2 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ 
+                            width: `${getTaskStats().total > 0 ? (getTaskStats().completed / getTaskStats().total) * 100 : 0}%` 
+                          }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Tasks List */}
+              <div className="lg:col-span-3">
+                <div className="space-y-4">
+                  {/* Search and Filters */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="relative">
+                      <ApperIcon 
+                        name="Search" 
+                        size={18} 
+                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-surface-400" 
+                      />
+                      <input
+                        type="text"
+                        placeholder="Search tasks..."
+                        value={taskSearch}
+                        onChange={(e) => setTaskSearch(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                      />
+                    </div>
+                    
+                    <select
+                      value={taskFilter}
+                      onChange={(e) => setTaskFilter(e.target.value)}
+                      className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    >
+                      <option value="all">All Tasks</option>
+                      <option value="pending">Pending</option>
+                      <option value="completed">Completed</option>
+                      <option value="overdue">Overdue</option>
+                      <option value="today">Due Today</option>
+                      <option value="upcoming">Upcoming</option>
+                      {taskCategories.map((category) => (
+                        <option key={category.value} value={category.value}>{category.label}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      value={taskSort}
+                      onChange={(e) => setTaskSort(e.target.value)}
+                      className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                    >
+                      <option value="dueDate">Sort by Due Date</option>
+                      <option value="priority">Sort by Priority</option>
+                      <option value="title">Sort by Title</option>
+                      <option value="created">Sort by Created</option>
+                    </select>
+                  </div>
+
+                  {/* Filter Tabs */}
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { value: 'all', label: 'All', count: getTaskStats().total },
+                      { value: 'pending', label: 'Pending', count: getTaskStats().pending },
+                      { value: 'completed', label: 'Completed', count: getTaskStats().completed },
+                      { value: 'overdue', label: 'Overdue', count: getTaskStats().overdue },
+                      { value: 'today', label: 'Today', count: getTaskStats().today }
+                    ].map((filter) => (
+                      <motion.button
+                        key={filter.value}
+                        onClick={() => setTaskFilter(filter.value)}
+                        className={`flex items-center space-x-2 px-3 py-2 text-xs font-medium rounded-lg transition-colors ${
+                          taskFilter === filter.value
+                            ? 'bg-primary text-white'
+                            : 'bg-surface-100 text-surface-600 hover:bg-surface-200'
+                        }`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <span>{filter.label}</span>
+                        {filter.count > 0 && (
+                          <span className={`px-1.5 py-0.5 rounded-full text-xs ${
+                            taskFilter === filter.value
+                              ? 'bg-white/20'
+                              : 'bg-surface-200'
+                          }`}>
+                            {filter.count}
+                          </span>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  {/* Tasks List */}
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {getFilteredTasks().length === 0 ? (
+                      <div className="text-center py-8 text-surface-500">
+                        <ApperIcon name="CheckSquare" size={48} className="mx-auto mb-3 text-surface-300" />
+                        <p className="font-medium mb-1">No tasks found</p>
+                        <p className="text-sm">Try adjusting your filter or add a new task</p>
+                      </div>
+                    ) : (
+                      getFilteredTasks().map((task) => (
+                        <motion.div
+                          key={task.id}
+                          className={`bg-surface-50 rounded-xl p-4 border-l-4 hover:shadow-md transition-all duration-200 ${
+                            task.completed 
+                              ? 'border-green-400 opacity-75' 
+                              : isTaskOverdue(task)
+                              ? 'border-red-400'
+                              : getTaskPriorityColor(task.priority) === 'red'
+                              ? 'border-red-400'
+                              : getTaskPriorityColor(task.priority) === 'yellow'
+                              ? 'border-yellow-400'
+                              : 'border-green-400'
+                          }`}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          whileHover={{ scale: 1.01 }}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-3 mb-2">
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                  task.completed ? 'bg-green-100' : 'bg-indigo-100'
+                                }`}>
+                                  <ApperIcon 
+                                    name={getTaskCategoryIcon(task.category)} 
+                                    size={16} 
+                                    className={task.completed ? 'text-green-600' : 'text-indigo-600'} 
+                                  />
+                                </div>
+                                <div className="flex-1">
+                                  <h5 className={`font-semibold text-surface-800 ${
+                                    task.completed ? 'line-through opacity-70' : ''
+                                  }`}>
+                                    {task.title}
+                                  </h5>
+                                  <div className="flex items-center space-x-3 text-xs text-surface-500">
+                                    <span className="flex items-center space-x-1">
+                                      <ApperIcon name="Calendar" size={12} />
+                                      <span>{format(task.dueDate, 'MMM dd, yyyy')}</span>
+                                    </span>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                                      getTaskCategoryColor(task.category) === 'red' ? 'bg-red-100 text-red-600' :
+                                      getTaskCategoryColor(task.category) === 'blue' ? 'bg-blue-100 text-blue-600' :
+                                      getTaskCategoryColor(task.category) === 'green' ? 'bg-green-100 text-green-600' :
+                                      getTaskCategoryColor(task.category) === 'purple' ? 'bg-purple-100 text-purple-600' :
+                                      getTaskCategoryColor(task.category) === 'indigo' ? 'bg-indigo-100 text-indigo-600' :
+                                      getTaskCategoryColor(task.category) === 'orange' ? 'bg-orange-100 text-orange-600' :
+                                      getTaskCategoryColor(task.category) === 'teal' ? 'bg-teal-100 text-teal-600' :
+                                      'bg-gray-100 text-gray-600'
+                                    }`}>
+                                      {taskCategories.find(c => c.value === task.category)?.label}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    getTaskPriorityColor(task.priority) === 'red' ? 'bg-red-100 text-red-600' :
+                                    getTaskPriorityColor(task.priority) === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
+                                    'bg-green-100 text-green-600'
+                                  }`}>
+                                    {task.priority}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                                    getTaskStatusColor(task.status) === 'green' ? 'bg-green-100 text-green-600' :
+                                    getTaskStatusColor(task.status) === 'blue' ? 'bg-blue-100 text-blue-600' :
+                                    getTaskStatusColor(task.status) === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
+                                    'bg-gray-100 text-gray-600'
+                                  }`}>
+                                    {taskStatuses.find(s => s.value === task.status)?.label}
+                                  </span>
+                                  {isTaskOverdue(task) && (
+                                    <span className="px-2 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium">
+                                      Overdue
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              {task.description && (
+                                <p className={`text-sm text-surface-600 mb-3 ${
+                                  task.completed ? 'opacity-70' : ''
+                                }`}>
+                                  {task.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-3 border-t border-surface-200">
+                            <div className="flex items-center space-x-2">
+                              <motion.button
+                                onClick={() => handleTaskToggle(task.id)}
+                                className={`p-2 rounded-lg transition-colors ${
+                                  task.completed
+                                    ? 'bg-green-100 text-green-600 hover:bg-green-200'
+                                    : 'bg-surface-200 text-surface-600 hover:bg-surface-300'
+                                }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name={task.completed ? "CheckCircle" : "Circle"} size={16} />
+                              </motion.button>
+
+                              <select
+                                value={task.status}
+                                onChange={(e) => handleTaskStatusChange(task.id, e.target.value)}
+                                className="text-xs border border-surface-300 rounded px-2 py-1 bg-white"
+                              >
+                                {taskStatuses.map((status) => (
+                                  <option key={status.value} value={status.value}>{status.label}</option>
+                                ))}
+                              </select>
+
+                              <motion.button
+                                onClick={() => handleTaskEdit(task)}
+                                className="p-2 rounded-lg bg-surface-200 text-surface-600 hover:bg-surface-300 transition-colors"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name="Edit" size={16} />
+                              </motion.button>
+
+                              <motion.button
+                                onClick={() => handleTaskDelete(task.id)}
+                                className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name="Trash2" size={16} />
+                              </motion.button>
+                            </div>
+
+                            <div className="text-xs text-surface-500">
+                              {differenceInDays(task.dueDate, new Date()) === 0 
+                                ? 'Due Today'
+                                : differenceInDays(task.dueDate, new Date()) === 1
+                                ? 'Due Tomorrow'
+                                : differenceInDays(task.dueDate, new Date()) > 0
+                                ? `Due in ${differenceInDays(task.dueDate, new Date())} days`
+                                : `${Math.abs(differenceInDays(task.dueDate, new Date()))} days overdue`
+                              }
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
