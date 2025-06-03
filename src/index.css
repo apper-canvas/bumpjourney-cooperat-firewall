@@ -151,11 +151,16 @@
   }
   
   .chat-container {
-    @apply w-full h-full bottom-0 right-0 rounded-none;
+    @apply w-full h-full bottom-20 right-0 rounded-none;
   }
   
   .chat-float-button {
-    @apply bottom-4 right-4 w-14 h-14;
+    @apply bottom-20 right-4 w-14 h-14;
+  }
+  
+  /* Ensure toasts don't overlap with fixed navigation */
+  .Toastify__toast-container {
+    bottom: 6rem !important;
   }
 }
 
