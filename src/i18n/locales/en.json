@@ -1,11 +1,12 @@
 {
-  "common": {
-    "hello": "Hello",
-    "save": "Save",
-    "cancel": "Cancel",
-    "edit": "Edit",
-    "delete": "Delete",
-    "add": "Add",
+"app": {
+    "title": "BumpJourney",
+    "subtitle": "Your pregnancy companion",
+    "description": "Track your pregnancy journey with personalized insights, health monitoring, and expert guidance every step of the way."
+  },
+  "navigation": {
+    "language": "Language",
+    "home": "Home",
     "update": "Update",
     "loading": "Loading",
     "error": "Error",

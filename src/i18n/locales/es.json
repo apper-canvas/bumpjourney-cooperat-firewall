@@ -1,11 +1,12 @@
 {
-  "common": {
-    "hello": "Hola",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "add": "Agregar",
+"app": {
+    "title": "Viaje del Embarazo",
+    "subtitle": "Tu compañero de embarazo",
+    "description": "Sigue tu viaje de embarazo con información personalizada, monitoreo de salud y orientación experta en cada paso del camino."
+  },
+  "navigation": {
+    "language": "Idioma",
+    "home": "Inicio",
     "update": "Actualizar",
     "loading": "Cargando",
     "error": "Error",

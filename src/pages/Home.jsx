@@ -4,36 +4,53 @@ import { format, differenceInWeeks, addWeeks } from 'date-fns'
 import MainFeature from '../components/MainFeature'
 import ApperIcon from '../components/ApperIcon'
 
+// Mock translation function
+const t = (key) => {
+  const translations = {
+    'navigation.language': 'Language',
+    'app.title': 'BumpJourney'
+  }
+  return translations[key] || key
+}
+
+// Mock LanguageSwitcher component
+const LanguageSwitcher = () => (
+  <select className="text-sm border rounded px-2 py-1">
+    <option>EN</option>
+    <option>ES</option>
+  </select>
+)
+
 const Home = () => {
   const [currentWeek, setCurrentWeek] = useState(20)
   const [dueDate, setDueDate] = useState(new Date(Date.now() + (20 * 7 * 24 * 60 * 60 * 1000)))
   const [userName, setUserName] = useState('Sarah')
 
   const floatingElements = [
-    { icon: 'Heart', delay: 0, position: 'top-20 left-10' },
-    { icon: 'Star', delay: 1, position: 'top-32 right-20' },
-    { icon: 'Sparkles', delay: 2, position: 'top-40 left-1/4' },
-    { icon: 'Heart', delay: 3, position: 'top-52 right-1/3' }
+    { icon: 'Heart', x: '10%', y: '20%', delay: 0 },
+    { icon: 'Star', x: '80%', y: '15%', delay: 0.5 },
+    { icon: 'Baby', x: '15%', y: '70%', delay: 1 },
+    { icon: 'Sparkles', x: '85%', y: '60%', delay: 1.5 }
   ]
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute inset-0 pointer-events-none">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+      {/* Floating Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {floatingElements.map((element, index) => (
           <motion.div
             key={index}
-            className={`floating-heart ${element.position}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: [0.3, 0.6, 0.3], 
+            className="absolute text-pink-200/30"
+            style={{ left: element.x, top: element.y }}
+            animate={{
               y: [0, -20, 0],
+              rotate: [0, 10, -10, 0],
               scale: [1, 1.1, 1]
             }}
             transition={{
               duration: 4,
               delay: element.delay,
-              repeat: Infinity,
+repeat: Infinity,
               ease: "easeInOut"
             }}
           >
@@ -41,8 +58,7 @@ const Home = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Header */}
+{/* Header */}
       <motion.header 
         className="relative z-10 bg-white/80 backdrop-blur-sm border-b border-pink-100 shadow-soft"
         initial={{ y: -100 }}
@@ -163,9 +179,9 @@ const Home = () => {
           className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-pink-100 px-4 py-3 shadow-lg z-20"
           initial={{ y: 100 }}
           animate={{ y: 0 }}
-          transition={{ delay: 1.4 }}
+transition={{ delay: 1.4 }}
         >
-<div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex justify-around items-center">
               {[
                 { icon: 'Home', label: 'Home', active: true },
