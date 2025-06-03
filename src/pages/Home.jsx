@@ -1,27 +1,15 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format, differenceInWeeks, addWeeks } from 'date-fns'
+import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import MainFeature from '../components/MainFeature'
 import ApperIcon from '../components/ApperIcon'
-
-// Mock translation function
-const t = (key) => {
-  const translations = {
-    'navigation.language': 'Language',
-    'app.title': 'BumpJourney'
-  }
-  return translations[key] || key
-}
-
-// Mock LanguageSwitcher component
-const LanguageSwitcher = () => (
-  <select className="text-sm border rounded px-2 py-1">
-    <option>EN</option>
-    <option>ES</option>
-  </select>
-)
+import LanguageSwitcher from '../components/LanguageSwitcher'
 
 const Home = () => {
+  const { t } = useTranslation()
+  const location = useLocation()
   const [currentWeek, setCurrentWeek] = useState(20)
   const [dueDate, setDueDate] = useState(new Date(Date.now() + (20 * 7 * 24 * 60 * 60 * 1000)))
   const [userName, setUserName] = useState('Sarah')
