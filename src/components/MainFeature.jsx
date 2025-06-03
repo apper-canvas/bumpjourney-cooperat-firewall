@@ -282,6 +282,7 @@ const tabs = [
     { id: 'symptoms', label: 'Symptoms', icon: 'Heart' },
     { id: 'appointments', label: 'Appointments', icon: 'Calendar' },
     { id: 'reminders', label: 'Reminders', icon: 'Bell' },
+    { id: 'tips', label: 'Daily Tips', icon: 'Lightbulb' },
     { id: 'education', label: 'Education', icon: 'BookOpen' },
     { id: 'profile', label: 'Profile', icon: 'User' }
   ]
@@ -487,11 +488,225 @@ const tabs = [
       ]
     }
   }
-
-  // State for education section
+// State for education section
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [expandedArticle, setExpandedArticle] = useState(null)
+
+  // Daily Tips state and data
+  const [favoriteTips, setFavoriteTips] = useState([])
+  const [readTips, setReadTips] = useState([])
+  const [selectedTipCategory, setSelectedTipCategory] = useState('all')
+
+  // Daily Tips data organized by week ranges
+  const dailyTipsData = {
+    weeks1to12: [
+      {
+        id: 'tip-1-1',
+        title: 'Start Taking Prenatal Vitamins',
+        category: 'nutrition',
+        content: 'Begin taking prenatal vitamins with folic acid to support your baby\'s neural tube development. Look for vitamins containing at least 400-800 mcg of folic acid.',
+        importance: 'high',
+        weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        id: 'tip-1-2',
+        title: 'Stay Hydrated',
+        category: 'wellness',
+        content: 'Drink 8-10 glasses of water daily to support increased blood volume and help prevent common pregnancy symptoms like constipation and fatigue.',
+        importance: 'high',
+        weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        id: 'tip-1-3',
+        title: 'Get Plenty of Rest',
+        category: 'wellness',
+        content: 'Aim for 7-9 hours of sleep per night. Your body is working hard to create new life, and adequate rest is crucial for both you and your baby.',
+        importance: 'medium',
+        weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        id: 'tip-1-4',
+        title: 'Avoid Alcohol and Smoking',
+        category: 'wellness',
+        content: 'Completely avoid alcohol, smoking, and recreational drugs. These substances can cause serious harm to your developing baby.',
+        importance: 'high',
+        weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        id: 'tip-1-5',
+        title: 'Eat Small, Frequent Meals',
+        category: 'nutrition',
+        content: 'Combat morning sickness by eating smaller meals throughout the day. Keep crackers or dry toast nearby for nausea relief.',
+        importance: 'medium',
+        weeks: [6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        id: 'tip-1-6',
+        title: 'Schedule Your First Prenatal Appointment',
+        category: 'preparation',
+        content: 'Book your first prenatal visit between 8-10 weeks. Prepare a list of questions and bring your medical history.',
+        importance: 'high',
+        weeks: [6, 7, 8, 9, 10]
+      }
+    ],
+    weeks13to26: [
+      {
+        id: 'tip-2-1',
+        title: 'Start Gentle Exercise',
+        category: 'exercise',
+        content: 'Begin or continue a safe exercise routine. Walking, swimming, and prenatal yoga are excellent choices for the second trimester.',
+        importance: 'medium',
+        weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      },
+      {
+        id: 'tip-2-2',
+        title: 'Focus on Protein and Iron',
+        category: 'nutrition',
+        content: 'Increase protein intake and include iron-rich foods like lean meats, beans, and leafy greens to support your baby\'s rapid growth.',
+        importance: 'high',
+        weeks: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      },
+      {
+        id: 'tip-2-3',
+        title: 'Practice Good Posture',
+        category: 'wellness',
+        content: 'As your belly grows, maintain good posture to prevent back pain. Consider using a pregnancy support belt if needed.',
+        importance: 'medium',
+        weeks: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      },
+      {
+        id: 'tip-2-4',
+        title: 'Start Planning Your Nursery',
+        category: 'preparation',
+        content: 'Begin thinking about your baby\'s nursery setup. This is a great time to start shopping for essential items when you have more energy.',
+        importance: 'low',
+        weeks: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+      },
+      {
+        id: 'tip-2-5',
+        title: 'Schedule Your Anatomy Scan',
+        category: 'preparation',
+        content: 'Book your detailed ultrasound between 18-22 weeks. This scan checks your baby\'s development and can reveal the gender if you want to know.',
+        importance: 'high',
+        weeks: [16, 17, 18, 19, 20, 21, 22]
+      },
+      {
+        id: 'tip-2-6',
+        title: 'Start Talking to Your Baby',
+        category: 'wellness',
+        content: 'Your baby can hear sounds from outside the womb. Start talking, singing, or playing music to begin bonding with your little one.',
+        importance: 'low',
+        weeks: [18, 19, 20, 21, 22, 23, 24, 25, 26]
+      }
+    ],
+    weeks27to40: [
+      {
+        id: 'tip-3-1',
+        title: 'Create Your Birth Plan',
+        category: 'preparation',
+        content: 'Start thinking about your birth preferences. Discuss pain management options and delivery preferences with your healthcare provider.',
+        importance: 'high',
+        weeks: [28, 29, 30, 31, 32, 33, 34, 35, 36]
+      },
+      {
+        id: 'tip-3-2',
+        title: 'Practice Breathing Exercises',
+        category: 'wellness',
+        content: 'Learn and practice breathing techniques that will help you during labor. Consider taking a childbirth preparation class.',
+        importance: 'medium',
+        weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+      },
+      {
+        id: 'tip-3-3',
+        title: 'Pack Your Hospital Bag',
+        category: 'preparation',
+        content: 'Start packing your hospital bag by 36 weeks. Include comfortable clothes, toiletries, and items for your baby\'s first journey home.',
+        importance: 'high',
+        weeks: [32, 33, 34, 35, 36, 37, 38, 39, 40]
+      },
+      {
+        id: 'tip-3-4',
+        title: 'Monitor Baby\'s Movements',
+        category: 'wellness',
+        content: 'Pay attention to your baby\'s movement patterns. Contact your healthcare provider if you notice significant changes in activity.',
+        importance: 'high',
+        weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+      },
+      {
+        id: 'tip-3-5',
+        title: 'Prepare for Breastfeeding',
+        category: 'preparation',
+        content: 'Learn about breastfeeding basics and consider taking a breastfeeding class. Invest in a good nursing bra and comfortable nursing clothes.',
+        importance: 'medium',
+        weeks: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+      },
+      {
+        id: 'tip-3-6',
+        title: 'Get Adequate Calcium',
+        category: 'nutrition',
+        content: 'Ensure you\'re getting enough calcium for your baby\'s bone development. Include dairy products, leafy greens, and fortified foods in your diet.',
+        importance: 'medium',
+        weeks: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+      },
+      {
+        id: 'tip-3-7',
+        title: 'Learn About Labor Signs',
+        category: 'preparation',
+        content: 'Familiarize yourself with signs of labor including contractions, water breaking, and bloody show. Know when to contact your healthcare provider.',
+        importance: 'high',
+        weeks: [34, 35, 36, 37, 38, 39, 40]
+      }
+    ]
+  }
+
+  // Get tips for current week
+  const getTipsForWeek = () => {
+    let allTips = []
+    
+    if (currentWeek <= 12) {
+      allTips = dailyTipsData.weeks1to12
+    } else if (currentWeek <= 26) {
+      allTips = dailyTipsData.weeks13to26
+    } else {
+      allTips = dailyTipsData.weeks27to40
+    }
+    
+    return allTips.filter(tip => tip.weeks.includes(currentWeek))
+  }
+
+  // Filter tips by category
+  const getFilteredTips = () => {
+    const weekTips = getTipsForWeek()
+    if (selectedTipCategory === 'all') {
+      return weekTips
+    }
+    return weekTips.filter(tip => tip.category === selectedTipCategory)
+  }
+
+  // Handle tip interactions
+  const handleTipFavorite = (tipId) => {
+    setFavoriteTips(prev => {
+      const isFavorite = prev.includes(tipId)
+      if (isFavorite) {
+        toast.info('Tip removed from favorites')
+        return prev.filter(id => id !== tipId)
+      } else {
+        toast.success('Tip added to favorites!')
+        return [...prev, tipId]
+      }
+    })
+  }
+
+  const handleTipRead = (tipId) => {
+    setReadTips(prev => {
+      if (!prev.includes(tipId)) {
+        toast.success('Tip marked as read!')
+        return [...prev, tipId]
+      }
+      return prev
+    })
+  }
 
   // Get current trimester based on week
   const getCurrentTrimester = (week) => {
@@ -2296,6 +2511,219 @@ return
                 </div>
               </div>
             </div>
+</motion.div>
+        )}
+
+        {/* Daily Tips Tab */}
+        {activeTab === 'tips' && (
+          <motion.div
+            key="tips"
+            className="pregnancy-card"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="Lightbulb" className="text-white" size={16} />
+              </div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-surface-800">Daily Tips for Week {currentWeek}</h3>
+                <p className="text-sm text-surface-600">
+                  Helpful tips to support your pregnancy journey
+                </p>
+              </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {[
+                { value: 'all', label: 'All Tips', icon: 'Lightbulb' },
+                { value: 'wellness', label: 'Wellness', icon: 'Heart' },
+                { value: 'nutrition', label: 'Nutrition', icon: 'Apple' },
+                { value: 'preparation', label: 'Preparation', icon: 'Package' },
+                { value: 'exercise', label: 'Exercise', icon: 'Activity' }
+              ].map((category) => (
+                <motion.button
+                  key={category.value}
+                  onClick={() => setSelectedTipCategory(category.value)}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    selectedTipCategory === category.value
+                      ? 'bg-primary text-white shadow-md'
+                      : 'bg-surface-100 text-surface-600 hover:bg-surface-200'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <ApperIcon name={category.icon} size={16} />
+                  <span className="text-sm">{category.label}</span>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Tips Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              {getFilteredTips().length === 0 ? (
+                <div className="lg:col-span-2 text-center py-12">
+                  <ApperIcon name="Lightbulb" size={48} className="mx-auto mb-4 text-surface-300" />
+                  <h4 className="text-lg font-medium text-surface-600 mb-2">No tips for this week</h4>
+                  <p className="text-surface-500 text-sm">
+                    Check back next week for new helpful tips!
+                  </p>
+                </div>
+              ) : (
+                getFilteredTips().map((tip, index) => (
+                  <motion.div
+                    key={tip.id}
+                    className="bg-white rounded-xl border border-surface-200 overflow-hidden hover:shadow-md transition-all duration-200"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                  >
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              tip.category === 'wellness' ? 'bg-pink-100 text-pink-600' :
+                              tip.category === 'nutrition' ? 'bg-green-100 text-green-600' :
+                              tip.category === 'preparation' ? 'bg-blue-100 text-blue-600' :
+                              tip.category === 'exercise' ? 'bg-purple-100 text-purple-600' :
+                              'bg-yellow-100 text-yellow-600'
+                            }`}>
+                              {tip.category}
+                            </span>
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              tip.importance === 'high' ? 'bg-red-100 text-red-600' :
+                              tip.importance === 'medium' ? 'bg-yellow-100 text-yellow-600' :
+                              'bg-green-100 text-green-600'
+                            }`}>
+                              {tip.importance} priority
+                            </span>
+                          </div>
+                          <h5 className="text-lg font-semibold text-surface-800 mb-2">
+                            {tip.title}
+                          </h5>
+                          <p className="text-surface-600 text-sm leading-relaxed">
+                            {tip.content}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-surface-200">
+                        <div className="flex items-center space-x-2">
+                          <motion.button
+                            onClick={() => handleTipFavorite(tip.id)}
+                            className={`p-2 rounded-lg transition-colors ${
+                              favoriteTips.includes(tip.id)
+                                ? 'bg-pink-100 text-pink-600'
+                                : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
+                            }`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <ApperIcon name={favoriteTips.includes(tip.id) ? "Heart" : "Heart"} size={16} />
+                          </motion.button>
+
+                          <motion.button
+                            onClick={() => handleTipRead(tip.id)}
+                            className={`p-2 rounded-lg transition-colors ${
+                              readTips.includes(tip.id)
+                                ? 'bg-green-100 text-green-600'
+                                : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
+                            }`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <ApperIcon name={readTips.includes(tip.id) ? "CheckCircle" : "Circle"} size={16} />
+                          </motion.button>
+                        </div>
+
+                        <div className="text-xs text-surface-500">
+                          Week {currentWeek}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            {/* Tips Progress Summary */}
+            <motion.div 
+              className="mt-8 bg-gradient-to-br from-orange-50 to-pink-50 rounded-xl p-6 border border-orange-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center">
+                  <ApperIcon name="TrendingUp" className="text-white" size={16} />
+                </div>
+                <h4 className="text-lg font-semibold text-surface-800">Your Tips Progress</h4>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-orange-600 mb-1">
+                    {getTipsForWeek().length}
+                  </div>
+                  <div className="text-sm text-surface-600">Tips This Week</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-pink-600 mb-1">
+                    {favoriteTips.length}
+                  </div>
+                  <div className="text-sm text-surface-600">Favorite Tips</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600 mb-1">
+                    {readTips.filter(tipId => getTipsForWeek().some(tip => tip.id === tipId)).length}
+                  </div>
+                  <div className="text-sm text-surface-600">Tips Read</div>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-orange-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-surface-700">Weekly Progress</span>
+                  <span className="text-sm text-surface-600">
+                    {Math.round((readTips.filter(tipId => getTipsForWeek().some(tip => tip.id === tipId)).length / Math.max(getTipsForWeek().length, 1)) * 100)}%
+                  </span>
+                </div>
+                <div className="w-full bg-orange-200 rounded-full h-2">
+                  <motion.div 
+                    className="bg-gradient-to-r from-orange-400 to-pink-400 h-2 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ 
+                      width: `${(readTips.filter(tipId => getTipsForWeek().some(tip => tip.id === tipId)).length / Math.max(getTipsForWeek().length, 1)) * 100}%` 
+                    }}
+                    transition={{ duration: 1, delay: 0.8 }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Helpful Information */}
+            <motion.div 
+              className="mt-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="flex items-center space-x-2 mb-2">
+                <ApperIcon name="Info" className="text-blue-500" size={16} />
+                <h5 className="text-sm font-semibold text-blue-800">Remember</h5>
+              </div>
+              <p className="text-blue-700 text-xs leading-relaxed">
+                These tips are general recommendations and should not replace professional medical advice. 
+                Always consult with your healthcare provider about any concerns or questions regarding your pregnancy.
+              </p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
