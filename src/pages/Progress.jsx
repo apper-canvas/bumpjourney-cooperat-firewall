@@ -26,8 +26,8 @@ const Progress = () => {
     { week: 28, title: t('progress.third_trimester'), completed: false }
   ]
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-100 via-yellow-100 to-pink-100">
       {/* Header */}
       <motion.header 
         className="relative z-10 bg-white/80 backdrop-blur-sm border-b border-pink-100 shadow-soft"

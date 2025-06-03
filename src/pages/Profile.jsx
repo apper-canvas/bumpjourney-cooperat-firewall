@@ -33,8 +33,8 @@ const Profile = () => {
     setIsEditing(false)
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100">
       {/* Header */}
       <motion.header 
         className="relative z-10 bg-white/80 backdrop-blur-sm border-b border-pink-100 shadow-soft"

@@ -8,6 +8,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, #FF1493 0%, #00E5FF 50%, #64DD17 100%);
   }
   
   * {

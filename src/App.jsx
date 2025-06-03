@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound'
 import AIChatSupport from './components/AIChatSupport'
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />

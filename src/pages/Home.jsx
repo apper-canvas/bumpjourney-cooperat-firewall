@@ -21,8 +21,8 @@ const Home = () => {
     { icon: 'Sparkles', x: '85%', y: '60%', delay: 1.5 }
   ]
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
       {/* Floating Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {floatingElements.map((element, index) => (

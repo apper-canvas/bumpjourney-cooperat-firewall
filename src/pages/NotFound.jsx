@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import ApperIcon from '../components/ApperIcon'
 
 const NotFound = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
+return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-100 via-fuchsia-100 to-cyan-100">
       <motion.div 
         className="text-center px-4 sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
