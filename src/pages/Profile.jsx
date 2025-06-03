@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
-import ApperIcon from '../components/ApperIcon'
+import { Link, useLocation } from 'react-router-dom'
+import MainFeature from '../components/MainFeature'
 import LanguageSwitcher from '../components/LanguageSwitcher'
+import ThemeSelector from '../components/ThemeSelector'
+import ApperIcon from '../components/ApperIcon'
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -31,9 +33,9 @@ const Profile = () => {
   const handleCancel = () => {
     setEditForm(userProfile)
     setIsEditing(false)
-  }
+}
 
-return (
+  return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100">
       {/* Header */}
       <motion.header 
@@ -74,50 +76,52 @@ return (
                 whileTap={{ scale: 0.95 }}
               >
                 <ApperIcon name="Bell" className="text-surface-600" size={20} />
-              </motion.button>
+</motion.button>
             </motion.div>
           </div>
         </div>
       </motion.header>
 
       {/* Main Content */}
-<main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 pb-20 sm:pb-24">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ delay: 0.1 }}
+          className="mb-8"
         >
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-surface-800">{t('navigation.profile')}</h2>
-            {!isEditing ? (
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-surface-800">{t('profile.title', 'Profile')}</h2>
+              <p className="text-surface-600 mt-1">{t('profile.subtitle', 'Manage your account and preferences')}</p>
+            </div>
+            {!isEditing && (
               <motion.button
                 onClick={() => setIsEditing(true)}
-                className="flex items-center space-x-2 btn-primary"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="px-4 py-2 bg-primary text-white rounded-xl font-medium hover:bg-primary-600 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <ApperIcon name="Edit" size={16} />
-                <span>{t('common.edit')}</span>
+                {t('profile.edit', 'Edit Profile')}
               </motion.button>
-            ) : (
+            )}
+            {isEditing && (
               <div className="flex space-x-2">
                 <motion.button
                   onClick={handleSave}
-                  className="flex items-center space-x-2 btn-primary"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-green-500 text-white rounded-xl font-medium hover:bg-green-600 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ApperIcon name="Check" size={16} />
-                  <span>{t('common.save')}</span>
+                  {t('profile.save', 'Save')}
                 </motion.button>
                 <motion.button
                   onClick={handleCancel}
-                  className="flex items-center space-x-2 px-4 py-2 bg-surface-200 text-surface-700 rounded-xl hover:bg-surface-300 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-xl font-medium hover:bg-gray-600 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ApperIcon name="X" size={16} />
-                  <span>{t('common.cancel')}</span>
+                  {t('profile.cancel', 'Cancel')}
                 </motion.button>
               </div>
             )}
@@ -133,13 +137,13 @@ return (
             >
               <h3 className="text-xl font-semibold text-surface-800 mb-4 flex items-center">
                 <ApperIcon name="User" className="mr-2 text-primary" size={20} />
-                {t('profile.personal_info')}
+                {t('profile.personal_info', 'Personal Information')}
               </h3>
               
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-2">
-                    {t('profile.name')}
+                    {t('profile.name', 'Name')}
                   </label>
                   {isEditing ? (
                     <input
@@ -155,7 +159,7 @@ return (
                 
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-2">
-                    {t('profile.email')}
+                    {t('profile.email', 'Email')}
                   </label>
                   {isEditing ? (
                     <input
@@ -171,7 +175,7 @@ return (
                 
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-2">
-                    {t('profile.phone')}
+                    {t('profile.phone', 'Phone')}
                   </label>
                   {isEditing ? (
                     <input
@@ -187,7 +191,7 @@ return (
                 
                 <div>
                   <label className="block text-sm font-medium text-surface-700 mb-2">
-                    {t('profile.due_date')}
+                    {t('profile.due_date', 'Due Date')}
                   </label>
                   {isEditing ? (
                     <input
@@ -203,22 +207,65 @@ return (
               </div>
             </motion.div>
 
+            {/* Preferences Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="pregnancy-card"
+>
+              <div className="flex items-center space-x-2 mb-4">
+                <ApperIcon name="Settings" className="text-primary" size={20} />
+                <h3 className="text-lg font-semibold text-surface-800">
+                  {t('preferences', 'Preferences')}
+                </h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-surface-700">{t('language', 'Language')}</span>
+                  <LanguageSwitcher />
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-surface-700">{t('notifications', 'Notifications')}</span>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+                  >
+                    {t('enabled', 'Enabled')}
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Theme Selection Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="pregnancy-card"
+            >
+              <ThemeSelector />
+            </motion.div>
+
             {/* Language Settings */}
             <motion.div
               className="pregnancy-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.4 }}
             >
               <h3 className="text-xl font-semibold text-surface-800 mb-4 flex items-center">
                 <ApperIcon name="Globe" className="mr-2 text-primary" size={20} />
-                {t('profile.language_settings')}
+                {t('profile.language_settings', 'Language Settings')}
               </h3>
               
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-surface-600 mb-1">{t('profile.preferred_language')}</p>
-                  <p className="text-surface-800 font-medium">{t('profile.current_language')}</p>
+                  <p className="text-sm text-surface-600 mb-1">{t('profile.preferred_language', 'Preferred Language')}</p>
+                  <p className="text-surface-800 font-medium">{t('profile.current_language', 'English')}</p>
                 </div>
                 <LanguageSwitcher />
               </div>
@@ -226,8 +273,7 @@ return (
           </div>
         </motion.div>
       </main>
-
-      {/* Navigation Footer */}
+{/* Navigation Footer */}
       <motion.nav 
         className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-pink-100 px-4 py-3 shadow-lg z-20"
         initial={{ y: 100 }}
@@ -237,11 +283,11 @@ return (
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-around items-center">
             {[
-              { icon: 'Home', label: t('navigation.home'), path: '/', active: location.pathname === '/' },
-              { icon: 'TrendingUp', label: t('navigation.progress'), path: '/progress', active: location.pathname === '/progress' },
-              { icon: 'Calendar', label: t('navigation.calendar'), path: '/calendar', active: location.pathname === '/calendar' },
-              { icon: 'Heart', label: t('navigation.health'), path: '/health', active: location.pathname === '/health' },
-              { icon: 'User', label: t('navigation.profile'), path: '/profile', active: location.pathname === '/profile' }
+              { icon: 'Home', label: t('navigation.home', 'Home'), path: '/', active: location.pathname === '/' },
+              { icon: 'TrendingUp', label: t('navigation.progress', 'Progress'), path: '/progress', active: location.pathname === '/progress' },
+              { icon: 'Calendar', label: t('navigation.calendar', 'Calendar'), path: '/calendar', active: location.pathname === '/calendar' },
+              { icon: 'Heart', label: t('navigation.health', 'Health'), path: '/health', active: location.pathname === '/health' },
+              { icon: 'User', label: t('navigation.profile', 'Profile'), path: '/profile', active: location.pathname === '/profile' }
             ].map((item, index) => (
               <motion.div key={index}>
                 <Link

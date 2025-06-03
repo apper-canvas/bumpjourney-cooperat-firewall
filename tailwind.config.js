@@ -8,32 +8,32 @@ theme: {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#FF1493',
-          light: '#FFB3E6',
-          dark: '#DC143C'
+          DEFAULT: 'var(--color-primary)',
+          light: 'var(--color-primary-light)',
+          dark: 'var(--color-primary-dark)'
         },
         secondary: {
-          DEFAULT: '#FF6B35',
-          light: '#FFD6CC',
-          dark: '#E55100'
+          DEFAULT: 'var(--color-secondary)',
+          light: 'var(--color-secondary-light)',
+          dark: 'var(--color-secondary-dark)'
         },
         accent: {
-          DEFAULT: '#00E5FF',
-          teal: '#00BFA5',
-          lime: '#64DD17',
-          purple: '#9C27B0'
+          DEFAULT: 'var(--color-accent)',
+          teal: 'var(--color-accent-teal)',
+          lime: 'var(--color-accent-lime)',
+          purple: 'var(--color-accent-purple)'
         },
         surface: {
-          50: '#fefefe',
-          100: '#fafbfc',
-          200: '#f0f4f8',
-          300: '#dde7ee',
-          400: '#a2b8c7',
-          500: '#6b8199',
-          600: '#54657a',
-          700: '#3e4c59',
-          800: '#2a3441',
-          900: '#1a202a'
+          50: 'var(--color-surface-50)',
+          100: 'var(--color-surface-100)',
+          200: 'var(--color-surface-200)',
+          300: 'var(--color-surface-300)',
+          400: 'var(--color-surface-400)',
+          500: 'var(--color-surface-500)',
+          600: 'var(--color-surface-600)',
+          700: 'var(--color-surface-700)',
+          800: 'var(--color-surface-800)',
+          900: 'var(--color-surface-900)'
         }
       },
       fontFamily: {
@@ -45,8 +45,8 @@ boxShadow: {
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
         'neu-light': '5px 5px 15px #d1d9e6, -5px -5px 15px #ffffff',
         'neu-dark': '5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05)',
-        'pregnant-glow': '0 0 30px rgba(233, 30, 99, 0.2), 0 0 60px rgba(233, 30, 99, 0.1)',
-        'chat-glow': '0 0 20px rgba(233, 30, 99, 0.15), 0 0 40px rgba(233, 30, 99, 0.1)'
+        'pregnant-glow': '0 0 30px var(--color-primary-glow), 0 0 60px var(--color-primary-glow-light)',
+        'chat-glow': '0 0 20px var(--color-primary-glow), 0 0 40px var(--color-primary-glow-light)'
       },
       borderRadius: {
         '2xl': '1rem'

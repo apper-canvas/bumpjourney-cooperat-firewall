@@ -64,15 +64,17 @@
     "time": "Time",
     "type": "Type",
     "notes": "Notes"
-  },
+},
   "reminders": {
-    "title": "Reminders",
-    "add_reminder": "Add Reminder",
-    "reminder_title": "Reminder Title",
-    "reminder_date": "Date",
-    "reminder_time": "Time",
-    "reminder_type": "Type",
-    "reminder_description": "Description",
+    "notifications": "Notifications",
+    "enabled": "Enabled",
+    "saveProfile": "Save Profile",
+    "profileUpdated": "Profile updated successfully!",
+    "pregnancyWeek": "Week {{week}}",
+    "daysLeft": "{{days}} days left",
+    "firstTrimester": "First Trimester",
+    "colorTheme": "Color Theme",
+    "themeChanged": "Theme changed to {{themeName}}",
     "upcoming": "Upcoming",
     "today": "Today",
     "tomorrow": "Tomorrow",
@@ -117,10 +119,10 @@
     "temperature": "Temperature",
     "add_symptom": "Add New Symptom",
     "stay_hydrated": "Stay Hydrated",
-    "drink_water": "Drink at least 8 glasses of water daily",
+"drink_water": "Drink at least 8 glasses of water daily",
     "get_rest": "Get Adequate Rest",
     "sleep_hours": "Aim for 7-9 hours of sleep per night",
-"prenatal_yoga": "Try prenatal yoga or walking"
+    "prenatal_yoga": "Try prenatal yoga or walking"
   },
   "symptoms": {
     "logSuccess": "Symptom entry logged successfully!",

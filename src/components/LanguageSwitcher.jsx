@@ -23,7 +23,7 @@ const LanguageSwitcher = () => {
     <div className="relative">
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 bg-white/80 hover:bg-white rounded-xl border border-pink-100 transition-all duration-200 shadow-sm hover:shadow-md"
+className="flex items-center space-x-2 px-3 py-2 bg-white/80 hover:bg-white rounded-xl border border-surface-200 transition-all duration-200 shadow-sm hover:shadow-md"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -45,16 +45,16 @@ const LanguageSwitcher = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-lg border border-pink-100 min-w-40 z-[9999] overflow-hidden"
+className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-lg border border-surface-200 min-w-40 z-[9999] overflow-hidden"
           >
             {languages.map((language) => (
               <motion.button
                 key={language.code}
                 onClick={() => handleLanguageChange(language.code)}
-                className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-pink-50 transition-colors ${
-                  language.code === i18n.language ? 'bg-pink-50 text-primary' : 'text-surface-700'
+                className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-surface-50 transition-colors ${
+                  language.code === i18n.language ? 'bg-surface-50 text-primary' : 'text-surface-700'
                 }`}
-                whileHover={{ backgroundColor: 'rgba(233, 30, 99, 0.05)' }}
+whileHover={{ backgroundColor: 'rgba(var(--color-primary), 0.05)' }}
               >
                 <span className="text-lg">{language.flag}</span>
                 <span className="text-sm font-medium">{language.name}</span>
