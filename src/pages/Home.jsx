@@ -47,10 +47,10 @@ const Home = () => {
               rotate: [0, 10, -10, 0],
               scale: [1, 1.1, 1]
             }}
-            transition={{
+transition={{
               duration: 4,
               delay: element.delay,
-repeat: Infinity,
+              repeat: Infinity,
               ease: "easeInOut"
             }}
           >
