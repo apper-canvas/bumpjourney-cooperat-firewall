@@ -191,9 +191,10 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
     { value: 'low', label: 'Low', color: 'green' },
     { value: 'medium', label: 'Medium', color: 'yellow' },
     { value: 'high', label: 'High', color: 'red' }
-  ]
+]
 
   // Baby development data
+  const babyDevelopment = {
     1: { size: 'Poppy Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Fertilization occurs', 'Cell division begins'] },
     2: { size: 'Apple Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Implantation begins', 'Hormone production starts'] },
     3: { size: 'Sesame Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Neural tube forms', 'Heart begins to develop'] },
@@ -556,13 +557,12 @@ return ['All', ...Array.from(allCategories)]
   // Reminder handlers
   const handleReminderAdd = () => {
     if (!newReminder.title || !newReminder.date || !newReminder.time) {
-      toast.error('Please fill in all required fields')
-      return
+return
     }
-}
 
     const reminder = {
       id: Date.now(),
+      ...newReminder,
       ...newReminder,
       date: new Date(newReminder.date),
       completed: false
@@ -1892,10 +1892,9 @@ return ['All', ...Array.from(allCategories)]
           </motion.div>
         )}
 
-        {/* Reminders Tab */}
+{/* Reminders Tab */}
         {activeTab === 'reminders' && (
           <motion.div
-<motion.div
             key="reminders"
             className="pregnancy-card"
             initial={{ opacity: 0, x: -20 }}
