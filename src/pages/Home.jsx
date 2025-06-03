@@ -135,18 +135,18 @@ transition={{
               { icon: 'Heart', label: 'Trimester', value: currentWeek <= 12 ? '1st' : currentWeek <= 26 ? '2nd' : '3rd', color: 'accent' },
               { icon: 'Baby', label: 'Size', value: 'Banana', color: 'primary' }
             ].map((stat, index) => (
-              <motion.div
+<motion.div
                 key={index}
-                className="pregnancy-card text-center group hover:scale-105 p-3 sm:p-6"
+                className="pregnancy-card text-center group hover:scale-105 p-2 sm:p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <div className={`w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-full bg-gradient-to-br from-${stat.color} to-${stat.color}-dark flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200`}>
-                  <ApperIcon name={stat.icon} className="text-white" size={16} />
+                <div className={`w-6 h-6 sm:w-12 sm:h-12 mx-auto mb-1 sm:mb-3 rounded-full bg-gradient-to-br from-${stat.color} to-${stat.color}-dark flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-200`}>
+                  <ApperIcon name={stat.icon} className="text-white" size={12} />
                 </div>
-                <h3 className="text-base sm:text-xl font-bold text-surface-800 mb-1">{stat.value}</h3>
+                <h3 className="text-sm sm:text-xl font-bold text-surface-800 mb-0 sm:mb-1">{stat.value}</h3>
                 <p className="text-surface-600 text-xs sm:text-sm">{stat.label}</p>
               </motion.div>
             ))}
