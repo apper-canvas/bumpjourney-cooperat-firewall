@@ -83,10 +83,58 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
         temperature: 'F'
       }
     }
-  })
+})
   const [editingProfile, setEditingProfile] = useState(false)
   const [editingSection, setEditingSection] = useState(null)
   
+  // Reminder system state
+  const [reminders, setReminders] = useState([
+    {
+      id: 1,
+      title: 'Take Prenatal Vitamins',
+      description: 'Daily prenatal vitamin with folic acid',
+      type: 'medication',
+      date: new Date(Date.now() + (1 * 24 * 60 * 60 * 1000)),
+      time: '08:00',
+      completed: false,
+      recurring: 'daily',
+      priority: 'high'
+    },
+    {
+      id: 2,
+      title: 'Glucose Test Appointment',
+      description: 'Routine glucose screening test',
+      type: 'appointment',
+      date: new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)),
+      time: '10:30',
+      completed: false,
+      recurring: 'none',
+      priority: 'high'
+    },
+    {
+      id: 3,
+      title: 'Prenatal Yoga Class',
+      description: 'Weekly prenatal yoga session',
+      type: 'activity',
+      date: new Date(Date.now() + (3 * 24 * 60 * 60 * 1000)),
+      time: '18:00',
+      completed: false,
+      recurring: 'weekly',
+      priority: 'medium'
+    }
+  ])
+  const [newReminder, setNewReminder] = useState({
+    title: '',
+    description: '',
+    type: 'appointment',
+    date: '',
+    time: '',
+    recurring: 'none',
+    priority: 'medium'
+  })
+  const [showReminderForm, setShowReminderForm] = useState(false)
+  const [editingReminder, setEditingReminder] = useState(null)
+  const [reminderFilter, setReminderFilter] = useState('all')
   // Common symptoms
   const commonSymptoms = [
     'Nausea', 'Fatigue', 'Breast Tenderness', 'Food Cravings', 
@@ -109,6 +157,7 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
   ]
 
   // Appointment types
+// Appointment types
   const appointmentTypes = [
     'Regular Checkup',
     'Ultrasound',
@@ -118,8 +167,33 @@ const MainFeature = ({ currentWeek, setCurrentWeek }) => {
     'Emergency Visit'
   ]
 
+  // Reminder types and options
+// Reminder types and options
+  const reminderTypes = [
+    { value: 'appointment', label: 'Doctor Appointment', icon: 'Calendar' },
+    { value: 'scan', label: 'Ultrasound/Scan', icon: 'Monitor' },
+    { value: 'medication', label: 'Medication', icon: 'Pill' },
+    { value: 'activity', label: 'Exercise/Activity', icon: 'Activity' },
+    { value: 'checkup', label: 'Health Checkup', icon: 'Heart' },
+    { value: 'test', label: 'Medical Test', icon: 'FileText' },
+    { value: 'preparation', label: 'Birth Preparation', icon: 'Package' },
+    { value: 'other', label: 'Other', icon: 'Clock' }
+  ]
+
+  const recurringOptions = [
+    { value: 'none', label: 'One-time' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'monthly', label: 'Monthly' }
+  ]
+
+  const priorityOptions = [
+    { value: 'low', label: 'Low', color: 'green' },
+    { value: 'medium', label: 'Medium', color: 'yellow' },
+    { value: 'high', label: 'High', color: 'red' }
+  ]
+
   // Baby development data
-  const babyDevelopment = {
     1: { size: 'Poppy Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Fertilization occurs', 'Cell division begins'] },
     2: { size: 'Apple Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Implantation begins', 'Hormone production starts'] },
     3: { size: 'Sesame Seed', length: '0.1"', weight: '< 0.1 oz', milestones: ['Neural tube forms', 'Heart begins to develop'] },
@@ -206,6 +280,7 @@ const tabs = [
     { id: 'progress', label: 'Progress', icon: 'TrendingUp' },
     { id: 'symptoms', label: 'Symptoms', icon: 'Heart' },
     { id: 'appointments', label: 'Appointments', icon: 'Calendar' },
+    { id: 'reminders', label: 'Reminders', icon: 'Bell' },
     { id: 'education', label: 'Education', icon: 'BookOpen' },
     { id: 'profile', label: 'Profile', icon: 'User' }
   ]
@@ -473,9 +548,139 @@ return ['All', ...Array.from(allCategories)]
           ...prev.preferences.notifications,
           [type]: !prev.preferences.notifications[type]
         }
-      }
+}
     }))
     toast.success('Notification preferences updated!')
+  }
+
+  // Reminder handlers
+  const handleReminderAdd = () => {
+    if (!newReminder.title || !newReminder.date || !newReminder.time) {
+      toast.error('Please fill in all required fields')
+      return
+    }
+}
+
+    const reminder = {
+      id: Date.now(),
+      ...newReminder,
+      date: new Date(newReminder.date),
+      completed: false
+    }
+
+    setReminders([...reminders, reminder])
+    setNewReminder({
+      title: '',
+      description: '',
+      type: 'appointment',
+      date: '',
+      time: '',
+      recurring: 'none',
+      priority: 'medium'
+    })
+    setShowReminderForm(false)
+    toast.success('Reminder created successfully!')
+  }
+
+  const handleReminderEdit = (reminder) => {
+    setEditingReminder(reminder.id)
+    setNewReminder({
+      title: reminder.title,
+      description: reminder.description,
+      type: reminder.type,
+      date: format(reminder.date, 'yyyy-MM-dd'),
+      time: reminder.time,
+      recurring: reminder.recurring,
+      priority: reminder.priority
+    })
+    setShowReminderForm(true)
+  }
+
+  const handleReminderUpdate = () => {
+    if (!newReminder.title || !newReminder.date || !newReminder.time) {
+      toast.error('Please fill in all required fields')
+      return
+    }
+
+    setReminders(prevReminders =>
+      prevReminders.map(reminder =>
+        reminder.id === editingReminder
+          ? {
+              ...reminder,
+              ...newReminder,
+              date: new Date(newReminder.date)
+            }
+          : reminder
+      )
+    )
+
+    setNewReminder({
+      title: '',
+      description: '',
+      type: 'appointment',
+      date: '',
+      time: '',
+      recurring: 'none',
+      priority: 'medium'
+    })
+    setShowReminderForm(false)
+    setEditingReminder(null)
+    toast.success('Reminder updated successfully!')
+  }
+
+  const handleReminderDelete = (id) => {
+    if (confirm('Are you sure you want to delete this reminder?')) {
+      setReminders(prevReminders => prevReminders.filter(reminder => reminder.id !== id))
+      toast.success('Reminder deleted successfully!')
+    }
+  }
+
+  const handleReminderComplete = (id) => {
+    setReminders(prevReminders =>
+      prevReminders.map(reminder =>
+        reminder.id === id
+          ? { ...reminder, completed: !reminder.completed }
+          : reminder
+      )
+    )
+    const reminder = reminders.find(r => r.id === id)
+    toast.success(`Reminder "${reminder.title}" marked as ${reminder.completed ? 'incomplete' : 'complete'}!`)
+  }
+
+  const getFilteredReminders = () => {
+    let filtered = reminders
+
+    if (reminderFilter !== 'all') {
+      if (reminderFilter === 'completed') {
+        filtered = filtered.filter(reminder => reminder.completed)
+      } else if (reminderFilter === 'pending') {
+        filtered = filtered.filter(reminder => !reminder.completed)
+      } else if (reminderFilter === 'today') {
+        const today = new Date()
+        filtered = filtered.filter(reminder => 
+          format(reminder.date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
+        )
+      } else if (reminderFilter === 'upcoming') {
+        const today = new Date()
+        filtered = filtered.filter(reminder => 
+          reminder.date >= today && !reminder.completed
+        )
+      } else {
+        filtered = filtered.filter(reminder => reminder.type === reminderFilter)
+      }
+    }
+
+    return filtered.sort((a, b) => new Date(a.date) - new Date(b.date))
+  }
+
+  const getReminderTypeIcon = (type) => {
+    const reminderType = reminderTypes.find(t => t.value === type)
+    return reminderType ? reminderType.icon : 'Clock'
+  }
+
+  const getPriorityColor = (priority) => {
+    const priorityOption = priorityOptions.find(p => p.value === priority)
+    return priorityOption ? priorityOption.color : 'gray'
   }
 
   return (
@@ -1681,7 +1886,415 @@ return ['All', ...Array.from(allCategories)]
                     <ApperIcon name="LogOut" size={16} />
                     <span>Sign Out</span>
                   </div>
-                </motion.button>
+</motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Reminders Tab */}
+        {activeTab === 'reminders' && (
+          <motion.div
+<motion.div
+            key="reminders"
+            className="pregnancy-card"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                <ApperIcon name="Bell" className="text-white" size={16} />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-surface-800">Pregnancy Reminders</h3>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+              {/* Reminder Form */}
+              <div className="lg:col-span-1">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-lg font-semibold text-surface-700">
+                      {editingReminder ? 'Edit Reminder' : 'Add New Reminder'}
+                    </h4>
+                    <motion.button
+                      onClick={() => {
+                        setShowReminderForm(!showReminderForm)
+                        if (showReminderForm) {
+                          setEditingReminder(null)
+                          setNewReminder({
+                            title: '',
+                            description: '',
+                            type: 'appointment',
+                            date: '',
+                            time: '',
+                            recurring: 'none',
+                            priority: 'medium'
+                          })
+                        }
+                      }}
+                      className="p-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <ApperIcon name={showReminderForm ? "X" : "Plus"} size={16} />
+                    </motion.button>
+                  </div>
+
+                  <AnimatePresence>
+                    {showReminderForm && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-4"
+                      >
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Title *
+                          </label>
+                          <input
+                            type="text"
+                            value={newReminder.title}
+                            onChange={(e) => setNewReminder(prev => ({ ...prev, title: e.target.value }))}
+                            placeholder="e.g., Doctor Appointment, Take Vitamins"
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Type
+                          </label>
+                          <select
+                            value={newReminder.type}
+                            onChange={(e) => setNewReminder(prev => ({ ...prev, type: e.target.value }))}
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                          >
+                            {reminderTypes.map((type) => (
+                              <option key={type.value} value={type.value}>{type.label}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Date *
+                            </label>
+                            <input
+                              type="date"
+                              value={newReminder.date}
+                              onChange={(e) => setNewReminder(prev => ({ ...prev, date: e.target.value }))}
+                              min={format(new Date(), "yyyy-MM-dd")}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Time *
+                            </label>
+                            <input
+                              type="time"
+                              value={newReminder.time}
+                              onChange={(e) => setNewReminder(prev => ({ ...prev, time: e.target.value }))}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Recurring
+                            </label>
+                            <select
+                              value={newReminder.recurring}
+                              onChange={(e) => setNewReminder(prev => ({ ...prev, recurring: e.target.value }))}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            >
+                              {recurringOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-surface-700 mb-2">
+                              Priority
+                            </label>
+                            <select
+                              value={newReminder.priority}
+                              onChange={(e) => setNewReminder(prev => ({ ...prev, priority: e.target.value }))}
+                              className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                            >
+                              {priorityOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-surface-700 mb-2">
+                            Description
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={newReminder.description}
+                            onChange={(e) => setNewReminder(prev => ({ ...prev, description: e.target.value }))}
+                            placeholder="Additional details about this reminder..."
+                            className="w-full px-4 py-3 border border-surface-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm"
+                          />
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <motion.button
+                            onClick={editingReminder ? handleReminderUpdate : handleReminderAdd}
+                            className="flex-1 bg-primary text-white px-4 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors duration-200 text-sm"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className="flex items-center justify-center space-x-2">
+                              <ApperIcon name={editingReminder ? "Save" : "Plus"} size={16} />
+                              <span>{editingReminder ? 'Update' : 'Add'} Reminder</span>
+                            </div>
+                          </motion.button>
+
+                          {editingReminder && (
+                            <motion.button
+                              onClick={() => {
+                                setEditingReminder(null)
+                                setShowReminderForm(false)
+                                setNewReminder({
+                                  title: '',
+                                  description: '',
+                                  type: 'appointment',
+                                  date: '',
+                                  time: '',
+                                  recurring: 'none',
+                                  priority: 'medium'
+                                })
+                              }}
+                              className="px-4 py-3 text-surface-600 border border-surface-300 rounded-xl hover:bg-surface-50 transition-colors text-sm"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              Cancel
+                            </motion.button>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Reminders List */}
+              <div className="lg:col-span-2">
+                <div className="space-y-4">
+                  {/* Filter Tabs */}
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { value: 'all', label: 'All' },
+                      { value: 'today', label: 'Today' },
+                      { value: 'upcoming', label: 'Upcoming' },
+                      { value: 'pending', label: 'Pending' },
+                      { value: 'completed', label: 'Completed' },
+                      { value: 'appointment', label: 'Appointments' },
+                      { value: 'medication', label: 'Medications' },
+                      { value: 'activity', label: 'Activities' }
+                    ].map((filter) => (
+                      <motion.button
+                        key={filter.value}
+                        onClick={() => setReminderFilter(filter.value)}
+                        className={`px-3 py-2 text-xs font-medium rounded-lg transition-colors ${
+                          reminderFilter === filter.value
+                            ? 'bg-primary text-white'
+                            : 'bg-surface-100 text-surface-600 hover:bg-surface-200'
+                        }`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        {filter.label}
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  {/* Reminders List */}
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {getFilteredReminders().length === 0 ? (
+                      <div className="text-center py-8 text-surface-500">
+                        <ApperIcon name="Bell" size={48} className="mx-auto mb-3 text-surface-300" />
+                        <p className="font-medium mb-1">No reminders found</p>
+                        <p className="text-sm">Try adjusting your filter or add a new reminder</p>
+                      </div>
+                    ) : (
+                      getFilteredReminders().map((reminder) => (
+                        <motion.div
+                          key={reminder.id}
+                          className={`bg-surface-50 rounded-xl p-4 border-l-4 hover:shadow-md transition-all duration-200 ${
+                            reminder.completed 
+                              ? 'border-green-400 opacity-75' 
+                              : getPriorityColor(reminder.priority) === 'red'
+                              ? 'border-red-400'
+                              : getPriorityColor(reminder.priority) === 'yellow'
+                              ? 'border-yellow-400'
+                              : 'border-green-400'
+                          }`}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          whileHover={{ scale: 1.01 }}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-3 mb-2">
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                  reminder.completed ? 'bg-green-100' : 'bg-primary/10'
+                                }`}>
+                                  <ApperIcon 
+                                    name={getReminderTypeIcon(reminder.type)} 
+                                    size={16} 
+                                    className={reminder.completed ? 'text-green-600' : 'text-primary'} 
+                                  />
+                                </div>
+                                <div className="flex-1">
+                                  <h5 className={`font-semibold text-surface-800 ${
+                                    reminder.completed ? 'line-through opacity-70' : ''
+                                  }`}>
+                                    {reminder.title}
+                                  </h5>
+                                  <div className="flex items-center space-x-3 text-xs text-surface-500">
+                                    <span className="flex items-center space-x-1">
+                                      <ApperIcon name="Calendar" size={12} />
+                                      <span>{format(reminder.date, 'MMM dd, yyyy')}</span>
+                                    </span>
+                                    <span className="flex items-center space-x-1">
+                                      <ApperIcon name="Clock" size={12} />
+                                      <span>{reminder.time}</span>
+                                    </span>
+                                    {reminder.recurring !== 'none' && (
+                                      <span className="flex items-center space-x-1">
+                                        <ApperIcon name="RotateCcw" size={12} />
+                                        <span className="capitalize">{reminder.recurring}</span>
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                    getPriorityColor(reminder.priority) === 'red' ? 'bg-red-100 text-red-600' :
+                                    getPriorityColor(reminder.priority) === 'yellow' ? 'bg-yellow-100 text-yellow-600' :
+                                    'bg-green-100 text-green-600'
+                                  }`}>
+                                    {reminder.priority}
+                                  </span>
+                                  <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                                    reminderTypes.find(t => t.value === reminder.type)?.value === 'appointment' ? 'bg-blue-100 text-blue-600' :
+                                    reminderTypes.find(t => t.value === reminder.type)?.value === 'medication' ? 'bg-purple-100 text-purple-600' :
+                                    reminderTypes.find(t => t.value === reminder.type)?.value === 'scan' ? 'bg-indigo-100 text-indigo-600' :
+                                    'bg-orange-100 text-orange-600'
+                                  }`}>
+                                    {reminderTypes.find(t => t.value === reminder.type)?.label}
+                                  </span>
+                                </div>
+                              </div>
+                              {reminder.description && (
+                                <p className={`text-sm text-surface-600 mb-3 ${
+                                  reminder.completed ? 'opacity-70' : ''
+                                }`}>
+                                  {reminder.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between pt-3 border-t border-surface-200">
+                            <div className="flex items-center space-x-2">
+                              <motion.button
+                                onClick={() => handleReminderComplete(reminder.id)}
+                                className={`p-2 rounded-lg transition-colors ${
+                                  reminder.completed
+                                    ? 'bg-green-100 text-green-600 hover:bg-green-200'
+                                    : 'bg-surface-200 text-surface-600 hover:bg-surface-300'
+                                }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name={reminder.completed ? "CheckCircle" : "Circle"} size={16} />
+                              </motion.button>
+
+                              <motion.button
+                                onClick={() => handleReminderEdit(reminder)}
+                                className="p-2 rounded-lg bg-surface-200 text-surface-600 hover:bg-surface-300 transition-colors"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name="Edit" size={16} />
+                              </motion.button>
+
+                              <motion.button
+                                onClick={() => handleReminderDelete(reminder.id)}
+                                className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ApperIcon name="Trash2" size={16} />
+                              </motion.button>
+                            </div>
+
+                            <div className="text-xs text-surface-500">
+                              {differenceInDays(reminder.date, new Date()) === 0 
+                                ? 'Today'
+                                : differenceInDays(reminder.date, new Date()) === 1
+                                ? 'Tomorrow'
+                                : differenceInDays(reminder.date, new Date()) > 0
+                                ? `In ${differenceInDays(reminder.date, new Date())} days`
+                                : `${Math.abs(differenceInDays(reminder.date, new Date()))} days ago`
+                              }
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
+                  </div>
+
+                  {/* Quick Stats */}
+                  <motion.div 
+                    className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 text-center border border-blue-100">
+                      <div className="text-lg font-bold text-blue-600">
+                        {reminders.filter(r => !r.completed).length}
+                      </div>
+                      <div className="text-xs text-blue-600">Pending</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 text-center border border-green-100">
+                      <div className="text-lg font-bold text-green-600">
+                        {reminders.filter(r => r.completed).length}
+                      </div>
+                      <div className="text-xs text-green-600">Completed</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 text-center border border-yellow-100">
+                      <div className="text-lg font-bold text-yellow-600">
+                        {reminders.filter(r => format(r.date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') && !r.completed).length}
+                      </div>
+                      <div className="text-xs text-yellow-600">Today</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center border border-purple-100">
+                      <div className="text-lg font-bold text-purple-600">
+                        {reminders.filter(r => r.priority === 'high' && !r.completed).length}
+                      </div>
+                      <div className="text-xs text-purple-600">High Priority</div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </motion.div>
