@@ -33,8 +33,10 @@ function App() {
         pauseOnHover
         theme="light"
         className="mt-16"
-        toastClassName="bg-white shadow-lg border border-pink-100"
+toastClassName="bg-white shadow-lg border border-pink-100"
       />
+      
+      <AIChatSupport />
     </div>
   )
 }

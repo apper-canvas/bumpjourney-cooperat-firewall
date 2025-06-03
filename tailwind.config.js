@@ -40,7 +40,8 @@ export default {
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
         'neu-light': '5px 5px 15px #d1d9e6, -5px -5px 15px #ffffff',
         'neu-dark': '5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05)',
-        'pregnant-glow': '0 0 30px rgba(233, 30, 99, 0.2), 0 0 60px rgba(233, 30, 99, 0.1)'
+'pregnant-glow': '0 0 30px rgba(233, 30, 99, 0.2), 0 0 60px rgba(233, 30, 99, 0.1)',
+        'chat-glow': '0 0 20px rgba(233, 30, 99, 0.15), 0 0 40px rgba(233, 30, 99, 0.1)'
       },
       borderRadius: {
         'xl': '0.75rem',
@@ -49,7 +50,12 @@ export default {
       animation: {
         'gentle-bounce': 'gentleBounce 2s ease-in-out infinite',
         'heart-beat': 'heartBeat 1.5s ease-in-out infinite',
-        'float': 'float 3s ease-in-out infinite'
+        'float': 'float 3s ease-in-out infinite',
+        'chat-float': 'chatFloat 4s ease-in-out infinite',
+        'message-in': 'messageIn 0.3s ease-out',
+        'typing-dot': 'typingDot 1.4s infinite ease-in-out',
+        'chat-slide-up': 'chatSlideUp 0.3s ease-out',
+        'pulse-gentle': 'pulseGentle 2s infinite'
       },
       keyframes: {
         gentleBounce: {
@@ -63,6 +69,27 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' }
+        },
+        chatFloat: {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '25%': { transform: 'translateY(-3px) rotate(1deg)' },
+          '75%': { transform: 'translateY(-2px) rotate(-1deg)' }
+        },
+        messageIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px) scale(0.95)' },
+          '100%': { opacity: '1', transform: 'translateY(0px) scale(1)' }
+        },
+        typingDot: {
+          '0%, 80%, 100%': { transform: 'scale(0.8)', opacity: '0.5' },
+          '40%': { transform: 'scale(1)', opacity: '1' }
+        },
+        chatSlideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0px)' }
+        },
+        pulseGentle: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' }
         }
       }
     }
