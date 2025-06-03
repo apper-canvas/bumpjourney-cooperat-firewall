@@ -38,14 +38,14 @@ const LanguageSwitcher = () => {
         />
       </motion.button>
 
-      <AnimatePresence>
+<AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-lg border border-pink-100 min-w-40 z-50 overflow-hidden"
+            className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-lg border border-pink-100 min-w-40 z-[9999] overflow-hidden"
           >
             {languages.map((language) => (
               <motion.button
