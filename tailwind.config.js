@@ -37,14 +37,14 @@ export default {
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
         'neu-light': '5px 5px 15px #d1d9e6, -5px -5px 15px #ffffff',
         'neu-dark': '5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.05)',
-'pregnant-glow': '0 0 30px rgba(233, 30, 99, 0.2), 0 0 60px rgba(233, 30, 99, 0.1)',
+        'pregnant-glow': '0 0 30px rgba(233, 30, 99, 0.2), 0 0 60px rgba(233, 30, 99, 0.1)',
         'chat-glow': '0 0 20px rgba(233, 30, 99, 0.15), 0 0 40px rgba(233, 30, 99, 0.1)'
       },
       borderRadius: {
-        'xl': '0.75rem',
         '2xl': '1rem'
       },
       animation: {

@@ -8,7 +8,7 @@ import Progress from './pages/Progress'
 import Calendar from './pages/Calendar'
 import Health from './pages/Health'
 import NotFound from './pages/NotFound'
-
+import AIChatSupport from './components/AIChatSupport'
 function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50">
