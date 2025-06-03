@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .pregnancy-card {
+    @apply bg-white/70 backdrop-blur-sm border border-pink-100 rounded-2xl p-6 shadow-soft hover:shadow-pregnant-glow transition-all duration-300;
+  }
+  
+  .symptom-button {
+    @apply px-4 py-2 rounded-xl border-2 border-pink-200 bg-white/80 text-pink-700 hover:bg-pink-100 hover:border-pink-300 transition-all duration-200 font-medium;
+  }
+  
+  .symptom-button-active {
+    @apply bg-primary text-white border-primary shadow-md;
+  }
+  
+  .week-progress-bar {
+    @apply w-full h-3 bg-pink-100 rounded-full overflow-hidden;
+  }
+  
+  .week-progress-fill {
+    @apply h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out;
+  }
+  
+  .baby-milestone {
+    @apply bg-gradient-to-br from-orange-100 to-pink-100 border border-orange-200 rounded-xl p-4 hover:shadow-soft transition-all duration-200;
+  }
+  
+  .floating-heart {
+    @apply absolute text-pink-400 opacity-60 animate-float;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-secondary to-secondary-dark text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e91e63;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ad1457;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
